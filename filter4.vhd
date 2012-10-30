@@ -19,7 +19,7 @@ architecture filterarch4 of filter4 is
 	constant b2 : std_logic_vector (15 downto 0) := conv_std_logic_vector(-1024,16);
 	constant a1 : std_logic_vector (15 downto 0) := conv_std_logic_vector(-1660,16);
 	constant a2 : std_logic_vector (15 downto 0) := conv_std_logic_vector(772,16);
-	constant gs : std_logic_vector (15 downto 0) := conv_std_logic_vector(1024,16);
+	constant gs : std_logic_vector (15 downto 0) := conv_std_logic_vector(1*1024,16);
 	
 begin
 	filter_proc: process(clk)
@@ -31,12 +31,6 @@ begin
 		variable mult4 : std_logic_vector (31 downto 0);
 		variable mult5 : std_logic_vector (31 downto 0);
 		variable mult6 : std_logic_vector (31 downto 0);
-		variable m1r : std_logic_vector (15 downto 0);
-		variable m2r : std_logic_vector (15 downto 0);
-		variable m3r : std_logic_vector (15 downto 0);
-		variable m4r : std_logic_vector (15 downto 0);
-		variable m5r : std_logic_vector (15 downto 0);
-		variable m6r : std_logic_vector (15 downto 0);
 	begin
 		if (clk'event and clk = '1') then
 		  mult1 := b0*sin;

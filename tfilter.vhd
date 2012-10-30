@@ -15,10 +15,18 @@ use ieee.std_logic_signed.all;
 
 entity test_filter is
     PORT (
-     		sout : out std_logic_vector (15 downto 0));
+     		sout3 : out std_logic_vector (15 downto 0);
+     		sout4 : out std_logic_vector (15 downto 0));
 end;
 
 architecture only of test_filter is
+
+COMPONENT filter3
+	port (
+		sin : in std_logic_vector (15 downto 0);
+		sout : out std_logic_vector (15 downto 0);
+		clk : in bit);
+END COMPONENT ;
 
 COMPONENT filter4
 	port (
@@ -33,11 +41,17 @@ SIGNAL sin  : std_logic_vector (15 downto 0) := "0000000000000000";
 begin
 
 
-dut : filter4 
+dut : filter3 
    PORT MAP (
    sin => sin,
    clk => clk,
-   sout => sout);
+   sout => sout3);
+   
+dutt : filter4
+   PORT MAP (
+     sin => sin,
+     clk => clk,
+     sout => sout4);
 
 clock : PROCESS
    begin
@@ -46,6 +60,7 @@ end PROCESS clock;
 
 stimulus : PROCESS
    begin
+   sin <= "0000000000000000";
    wait for 5 ns; sin  <= "0000010000000000";
    wait for 9 ns; sin  <= "0000000000000000";
    wait;
