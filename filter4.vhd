@@ -1,7 +1,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.std_logic_arith.all;
-use ieee.std_logic_unsigned.all;
+use ieee.std_logic_signed.all;
 
 entity filter4 is
 port (
@@ -44,15 +44,8 @@ begin
 		  mult3 := a2*historia1;
 		  mult4 := b1*historia0;
 		  mult5 := b2*historia1;
-		  m1r := mult1(25 downto 10);
-		  m2r := mult2(25 downto 10);
-		  m3r := mult3(25 downto 10);
-		  m4r := mult4(25 downto 10);
-		  m5r := mult5(25 downto 10);
-			sum1 := m1r - m2r;
-			sum1 := sum1 - m3r;
-			sum2 := sum1 + m4r;
-			sum2 := sum1 + m5r;
+			sum1 := mult1(25 downto 10) - mult2(25 downto 10) - mult3(25 downto 10);
+			sum2 := sum1 + mult4(25 downto 10) + mult5(25 downto 10);
 			historia1 <= historia0;
 			historia0 <= sum1;
 			mult6 := gs*sum2;
