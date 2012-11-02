@@ -13,19 +13,18 @@ end;
 architecture filterarch3 of filter3 is
 	signal historia0 : std_logic_vector (15 downto 0) := conv_std_logic_vector(0,16);
 	signal historia1 : std_logic_vector (15 downto 0) := conv_std_logic_vector(0,16);
-	--constant b0 : std_logic_vector (15 downto 0) := "0000010000000000";
 	constant b0 : std_logic_vector (15 downto 0) := conv_std_logic_vector(1024,16);
 	constant b1 : std_logic_vector (15 downto 0) := conv_std_logic_vector(0,16);
 	constant b2 : std_logic_vector (15 downto 0) := conv_std_logic_vector(-1024,16);
-	constant a1 : std_logic_vector (15 downto 0) := conv_std_logic_vector(-1660,16);
-	constant a2 : std_logic_vector (15 downto 0) := conv_std_logic_vector(772,16);
+	constant a1 : std_logic_vector (15 downto 0) := conv_std_logic_vector(-1878,16);
+	constant a2 : std_logic_vector (15 downto 0) := conv_std_logic_vector(890,16);
 	constant gs : std_logic_vector (15 downto 0) := conv_std_logic_vector(1*1024,16);
 	
 begin
 	filter_proc: process(clk)
 		variable sum1 : std_logic_vector (31 downto 0);
 		variable sum2 : std_logic_vector (31 downto 0);
-		variable gain : std_logic_vector (31 downto 0);
+		variable mult : std_logic_vector (31 downto 0);
 
 	begin
 		if (clk'event and clk = '1') then
@@ -33,8 +32,8 @@ begin
 			sum2 := sum1 + b1*historia0 + b2*historia1;
 			historia1 <= historia0;
 			historia0 <= sum1(25 downto 10);
-			gain := gs*sum2(25 downto 10);
-			sout <= gain(25 downto 10);
+			mult := gs*sum2(25 downto 10);
+			sout <= mult(25 downto 10);
 		end if;
 	end process;
 end filterarch3;

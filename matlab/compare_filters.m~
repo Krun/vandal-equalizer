@@ -1,0 +1,36 @@
+A = [1024 -2029 1006;
+    1024 -2011 988;
+    1024 -1970 955;
+    1024 -1878 890;
+    1024 -1660 772;
+    1024 -1115 569;
+    1024 141 239];
+B = [1024 0 -1024;
+    1024 0 -1024;
+    1024 0 -1024;
+    1024 0 -1024;
+    1024 0 -1024;
+    1024 0 -1024;
+    1024 0 -1024;];
+delta = zeros(1,189);
+delta(2) = 1;
+
+h = dlmread('responses.lst');
+h = h ./ 1024;
+for i = 1:7,
+    hi = transpose(h(:,i))
+    Bi = B(i,:)
+    Ai = A(i,:)
+    yi = filter(Bi, Ai, delta)
+    diff = yi-hi;
+    subplot(2,2,1); stem(hi);
+    tit = sprintf('Respuesta del filtro %i',i-1)
+    title(
+    subplot(2,2,2); stem(yi);
+    subplot(2,2,[3:4]); stem(diff);
+    pause
+    subplot
+end
+
+
+
