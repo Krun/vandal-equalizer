@@ -6,19 +6,22 @@
 \usepackage{epstopdf}
 \usepackage[spanish]{babel}
 \usepackage{appendix}
+\usepackage[usenames,dvipsnames,table]{xcolor}
+\usepackage{minted}
+\usepackage[a4paper]{geometry}
 
+\newminted{vhdl}{mathescape, linenos, numbersep=15pt, frame=lines,framesep=2mm}
+               
+\newminted{matlab}{mathescape, linenos, numbersep=15pt, frame=lines,framesep=2mm}               
 
-
-\usepackage[T1]{fontenc}
-\newcommand\Small{\fontsize{7}{8}\selectfont}
-\newcommand*\LSTfont{\Small\ttfamily\SetTracking{encoding=*}{-60}\lsstyle}
+\definecolor{bg}{rgb}{0.95,0.95,0.95}
 
 
 % Allow the change of line spacing
 \usepackage{setspace}
 \usepackage{tabularx}
 \usepackage{graphicx}
-\usepackage[usenames,dvipsnames,table]{xcolor}
+
 
 %\usepackage{hyperref}
 %\usepackage{breakurl}
@@ -162,9 +165,7 @@ A la hora de implementar estos filtros digitales, tenemos que tener en cuenta un
 
 A continuación se muestra el código de la implementación de los filtros en VHDL. La implementación de los 7 filtros es idéntica, cambiando únicamente el valor de las constantes $a_1$, $a_2$ y G, ya que el resto de coeficientes son iguales en todos los casos.
 
-\lstset{language=VHDL}
-\begin{framed}
-\begin{lstlisting}[basicstyle=\footnotesize\ttfamily]
+\begin{vhdlcode}
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.std_logic_arith.all;
@@ -174,7 +175,7 @@ entity filterX is
 port (
     sin : in std_logic_vector (15 downto 0);
     sout : out std_logic_vector (15 downto 0);
-	clk : in bit);
+    clk : in bit);
 end;
 
 architecture filterarchX of filterX is
@@ -212,8 +213,8 @@ begin
         end if;
     end process;
 end filterarchX;
-\end{lstlisting}
-\end{framed}
+\end{vhdlcode}
+\clearpage
 
 \section{Comprobación de la validez de los filtros}
 Finalmente, tras haber implementado los 7 filtros en VHDL, debemos comprobar mediante simulación que su funcionamiento es el correcto. Para ello, nos ayudaremos de la herramienta \emph{MATLAB}, que nos permite fácilmente realizar filtros dados los coeficientes \emph{a} y \emph{b} de los que disponemos.
@@ -261,13 +262,22 @@ Para todas ellas, se puede apreciar que la diferencia es de un valor cientos de 
 
 \clearpage
 
-\appendix
-\appendixpage
-\addappheadtotoc
-\section{Descripción del programa de simulación de filtros}
+\section{Detalle de los programas para la prueba de los filtros}
+En esta sección vamos a describir más detalladamente los programas utilizados para comprobar que los filtros se han realizado correctamente.
 
-\begin{framed}
-\begin{lstlisting}[basicstyle=\footnotesize\ttfamily]
+En concreto, hemos realizado un programa de simulación en ModelSim, donde definimos la señal de entrada al sistema y obtenemos la señal de salida de cada filtro. Esta señal deberá ser posteriormente exportada, y utilizaremos MATLAB para comparar esta señal con la respuesta la impulso que generaría un filtro creado con la función \emph{filter(B,A)} de MATLAB.
+
+A continuación describiremos el procedimiento seguido en ambos programas.
+
+\subsection{Programa ModelSim utilizado para la simulación}
+
+En primer lugar vamos a describir el programa utilizado en ModelSim para la simulación de los filtros anteriormente descritos. Con este fin se ha utilizado un programa de prueba en el que se incluyen los 7 filtros y se estimulan con una señal $\delta[n]$. La salida de los 7 filtros es convertida a un número entero para mayor comodidad.
+
+Los resultados de la simulación se exportaran en forma de lista para ser importados en \emph{MATLAB} y evaluados como hemos visto anteriormente. Es importante tener en cuenta que aunque nosotros estamos exportando números enteros, en nuestra representación de vectores de bits habíamos tomado 6 bits enteros y 10 bits fraccionarios. Como consecuencia, habrá que dividir los valores obtenidos por 1024 antes de poder comparar la respuesta al impulso en MATLAB.
+
+A continuación se muestra el programa VHDL que obtiene la respuesta al impulso de los filtros diseñados.
+
+\begin{vhdlcode}
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
@@ -276,7 +286,7 @@ use ieee.numeric_std.all;
 
 entity test_filter is
     PORT (
-     		iout0 : out integer;
+             iout0 : out integer;
             iout1 : out integer;
             iout2 : out integer;
             iout3 : out integer;
@@ -304,56 +314,57 @@ signal out5 : signed (15 downto 0);
 signal out6 : signed (15 downto 0);
 
 COMPONENT filter0
-	port (
-		sin : in std_logic_vector (15 downto 0);
-		sout : out std_logic_vector (15 downto 0);
-		clk : in bit);
+    port (
+        sin : in std_logic_vector (15 downto 0);
+        sout : out std_logic_vector (15 downto 0);
+        clk : in bit);
 END COMPONENT ;
 
 COMPONENT filter1
-	port (
-		sin : in std_logic_vector (15 downto 0);
-		sout : out std_logic_vector (15 downto 0);
-		clk : in bit);
+    port (
+        sin : in std_logic_vector (15 downto 0);
+        sout : out std_logic_vector (15 downto 0);
+        clk : in bit);
 END COMPONENT ;
 
 COMPONENT filter2
-	port (
-		sin : in std_logic_vector (15 downto 0);
-		sout : out std_logic_vector (15 downto 0);
-		clk : in bit);
+    port (
+        sin : in std_logic_vector (15 downto 0);
+        sout : out std_logic_vector (15 downto 0);
+        clk : in bit);
 END COMPONENT ;
 
 COMPONENT filter3
-	port (
-		sin : in std_logic_vector (15 downto 0);
-		sout : out std_logic_vector (15 downto 0);
-		clk : in bit);
+    port (
+        sin : in std_logic_vector (15 downto 0);
+        sout : out std_logic_vector (15 downto 0);
+        clk : in bit);
 END COMPONENT ;
 
 COMPONENT filter4
-	port (
-		sin : in std_logic_vector (15 downto 0);
-		sout : out std_logic_vector (15 downto 0);
-		clk : in bit);
+    port (
+        sin : in std_logic_vector (15 downto 0);
+        sout : out std_logic_vector (15 downto 0);
+        clk : in bit);
 END COMPONENT ;
 
 COMPONENT filter5
-	port (
-		sin : in std_logic_vector (15 downto 0);
-		sout : out std_logic_vector (15 downto 0);
-		clk : in bit);
+    port (
+        sin : in std_logic_vector (15 downto 0);
+        sout : out std_logic_vector (15 downto 0);
+        clk : in bit);
 END COMPONENT ;
 
 COMPONENT filter6
-	port (
-		sin : in std_logic_vector (15 downto 0);
-		sout : out std_logic_vector (15 downto 0);
-		clk : in bit);
+    port (
+        sin : in std_logic_vector (15 downto 0);
+        sout : out std_logic_vector (15 downto 0);
+        clk : in bit);
 END COMPONENT ;
 
 SIGNAL clk   : bit := '0';
-SIGNAL sin  : std_logic_vector (15 downto 0) := "0000000000000000";
+SIGNAL sin  : std_logic_vector (15 downto 0) 
+            := "0000000000000000";
 
 begin
 out0 <= signed(sout0);
@@ -428,8 +439,63 @@ stimulus : PROCESS
 end PROCESS stimulus;
 
 end only;
-\end{lstlisting}
-\end{framed}
+\end{vhdlcode}
+\clearpage
+
+\subsection{Programa MATLAB utilizado para la comprobación}
+Obtener la respuesta al impulso de los filtros en MATLAB es muy sencillo. MATLAB permite crear filtros a partir de sus coeficientes A y B, los mismos que hemos utilizado para la implementación en VHDL. Para obtener la respuesta al impulso simplemente deberemos generar una función $\delta[n]$ y calcular la salida del filtro utilizándola como entrada.
+
+A continuación se muestra el código del programa MATLAB utilizado con este fin.
+
+\emph{NOTA: La respuesta al impulso obtenida en ModelSIM de los filtros implementados, se encuentra en el archivo responses.lst, que será cargado para realizar la comparación.}
+
+\begin{matlabcode}
+
+A = [1024 -2029 1006;
+    1024 -2011 988;
+    1024 -1970 955;
+    1024 -1878 890;
+    1024 -1660 772;
+    1024 -1115 569;
+    1024 141 239];
+B = [1024 0 -1024;
+    1024 0 -1024;
+    1024 0 -1024;
+    1024 0 -1024;
+    1024 0 -1024;
+    1024 0 -1024;
+    1024 0 -1024;];
+
+
+
+h = dlmread('responses.lst');
+h = h ./ 1024;
+for i = 1:7,
+    delta = zeros(1,200);
+    delta(2) = 1;
+    hi = transpose(h(:,i))
+    Bi = B(i,:)
+    Ai = A(i,:)
+    yi = filter(Bi, Ai, delta)
+    diff = yi-hi;
+    subplot(2,2,1); stem(hi);
+    title('Respuesta obtenida en la simulacion')
+    xlabel('n')
+    ylabel('h[n]')
+    subplot(2,2,2); stem(yi);
+    title('Respuesta obtenida en MATLAB')
+    xlabel('n')
+    ylabel('h[n]')
+    subplot(2,2,[3:4]); stem(diff);
+    title('Diferencia entre ambas respuestas')
+    xlabel('n')
+    ylabel('|h_1[n]-h_2[n]|')
+    pause
+    subplot
+end
+
+\end{matlabcode}
+\clearpage
 
 \end{document}
 
