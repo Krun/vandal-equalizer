@@ -21,13 +21,15 @@ h = dlmread('responses.lst');
 h = h ./ 1024;
 for i = 1:7,
     limi = lim(i)
-    delta = zeros(1,limi);
-    delta(2) = 1;
+    y = 1:200
+    delta = sin(2*pi*400*y);
+    %delta = zeros(1,limi);
+    %delta(2) = 1;
     hi = transpose(h(1:limi,i))
     Bi = B(i,:)
     Ai = A(i,:)
     yi = filter(Bi, Ai, delta)
-    diff = yi-hi;
+    %diff = yi-hi;
     subplot(2,2,1); stem(hi);
     tit = sprintf('Respuesta obtenida en la simulacion (filtro %i)',i-1);
     title(tit)
@@ -38,7 +40,7 @@ for i = 1:7,
     title(tit)
     xlabel('n')
     ylabel('h[n]')
-    subplot(2,2,[3:4]); stem(diff);
+    %subplot(2,2,[3:4]); stem(diff);
     tit = sprintf('Diferencia entre ambos valores (filtro %i)',i-1);
     title(tit)
     xlabel('n')

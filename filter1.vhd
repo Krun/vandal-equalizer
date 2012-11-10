@@ -16,7 +16,7 @@ architecture filterarch1 of filter1 is
 	constant b0 : std_logic_vector (15 downto 0) := conv_std_logic_vector(1024,16);
 	constant b1 : std_logic_vector (15 downto 0) := conv_std_logic_vector(0,16);
 	constant b2 : std_logic_vector (15 downto 0) := conv_std_logic_vector(-1024,16);
-	constant a1 : std_logic_vector (15 downto 0) := conv_std_logic_vector(-2011,16);
+	constant a1 : std_logic_vector (15 downto 0) := conv_std_logic_vector(-2009,16);
 	constant a2 : std_logic_vector (15 downto 0) := conv_std_logic_vector(988,16);
 	constant gs : std_logic_vector (15 downto 0) := conv_std_logic_vector(1*1024,16);
 	
