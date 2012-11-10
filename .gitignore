@@ -3,6 +3,10 @@ work/
 *.wlf
 *.ini
 .*
+*.mpf
+*.mti
+*.vstf
+*~
 
 *.aux
 *.glo
