@@ -21,7 +21,7 @@ G = G./1024;
 lim = [180 180 180 120 90 60 30];
 
 
-Hgen = zeros(1024,1)
+Hgen = zeros(1024,1);
 
 for i = 1:7,
     Bi = B(i,:);
@@ -34,5 +34,7 @@ for i = 1:7,
     plot(W,H);
     hold all;
 end
-plot(W,10*log(Hgen))
+%plot(W,10*log(Hgen))
+xlabel('10*log(\omega)')
+ylabel('H(\omega) [dB]')
 

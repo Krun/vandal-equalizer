@@ -2,15 +2,6 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
---
--- Copyright 1991-2012 Mentor Graphics Corporation
---
--- All Rights Reserved.
---
--- THIS WORK CONTAINS TRADE SECRET AND PROPRIETARY INFORMATION WHICH IS THE PROPERTY OF 
--- MENTOR GRAPHICS CORPORATION OR ITS LICENSORS AND IS SUBJECT TO LICENSE TERMS.
---   
-
 entity test_filter is
     PORT (
      		iout0 : out integer;

@@ -13,14 +13,18 @@ B = [1024 0 -1024;
     1024 0 -1024;
     1024 0 -1024;];
 
-G = [8, 17, 34, 66, 125, 250, 500, 1000, 2000];
-G = G./1024;
+%en este fichero estan los valores de modelsim
+h = dlmread('responses_modelsim.lst'); 
+%Las dos primeras columnas son n y delta n, las quitamos
+h = h(:,3:end); 
+%Los valores estan escalados por 1024 (10 bits fraccionarios)
+h = h ./ 1024; 
 
+% Esto no es necesario, pero ayuda a la visualizacion.
+% Ajusta la longitud representada de cada respuesta al impulso
+% para no obtener partes poco representativas
 lim = [180 180 180 120 90 60 30];
 
-h = dlmread('responses.lst');
-h = h(:,3:end); %Las dos primeras columnas son n y delta n, las quitamos
-h = h ./ 1024;
 for i = 1:7,
     limi = lim(i);
     if (limi > length(h))
@@ -34,8 +38,8 @@ for i = 1:7,
     Ai = A(i,:);
     Gi = G(i);
     yi = filter(Bi, Ai, delta);
-    %yi = yi * Gi;
-    diff = abs(yi-hi);
+
+    diff = yi-hi;
     subplot(2,2,1); stem(hi);
     tit = sprintf('Respuesta obtenida en la simulacion (filtro %i)',i-1);
     title(tit)
