@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Vandal-equalizer : A simple audio equalizer programmed with VHDL. Its purpose is to serve as a learning exercise of VHDL, performing some basic digital signal processing tasks such as filtering, level detection, reverb effects and gain adjustment." />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Vandal-equalizer</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/Krun/vandal-equalizer">View on GitHub</a>
+
+          <h1 id="project_title">Vandal-equalizer</h1>
+          <h2 id="project_tagline">A simple audio equalizer programmed with VHDL. Its purpose is to serve as a learning exercise of VHDL, performing some basic digital signal processing tasks such as filtering, level detection, reverb effects and gain adjustment.</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/Krun/vandal-equalizer/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/Krun/vandal-equalizer/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>vandal-equalizer</h1>
+
+<h2>Overview</h2>
+
+<p><strong>vandal-equalizer</strong> is a simple audio equalizer programmed with VHDL. Its purpose is to serve as a learning exercise of VHDL, performing some basic digital signal processing tasks such as filtering, level detection or gain adjustment.</p>
+
+<p>The project comprises the implementation of the following modules, each of which can be studied as independent VHDL examples:</p>
+
+<ul>
+<li>IIR digital bandpass filters</li>
+<li>Gain adjustment for each audio band</li>
+<li>Delay module (reverb effect)</li>
+<li>Simulated VU meter (level detection)</li>
+</ul><p>The project has been developed with <em>ModelSim PE Student Edition 10.1</em>. Although it has not been simulated with any other tool, it should be able to work with any simulation software compatible with VHDL.</p>
+
+<p>The quality of the implemented modules may not meet high performance standards. The purpose of this implementation is exclusively educational, and therefore a proper audio processing ability is not guarranteed.</p>
+
+<h2>Installation</h2>
+
+<p>I recommend using ModelSim for simulation of this project. A free copy can be obtained from <a href="http://model.com/update/modelsim-downloads">their site</a> as long as it is used for educational purposes.</p>
+
+<p>If you are a student, visit <a href="http://model.com/update/modelsim-downloads">http://model.com/update/modelsim-downloads</a> and get the free copy they offer. There are also many other compatible tools, such as <em>GHDL</em> and <em>GTKWave</em>, which can be used for VHDL simulation.</p>
+
+<p>Download the source files from github:</p>
+
+<div class="highlight"><pre>git clone https://github.com/Krun/vandal-equalizer.git
+</pre></div>
+
+<p>Compile and run the simulation. Testbench files are provided, although they do not provide an exhaustive demonstration of the implemented capabilities.</p>
+
+<h2>FPGA Embedding</h2>
+
+<p>This project has not been made with the purpose of being embedded in FPGA's, and therefore, its implementation is not adequate for its direct embedding.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Vandal-equalizer maintained by <a href="https://github.com/Krun">Krun</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
