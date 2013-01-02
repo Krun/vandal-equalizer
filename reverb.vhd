@@ -16,6 +16,7 @@ port (
 end reverb;
 
 architecture revarch of reverb is
+signal gainout : signed(31 downto 0);
 signal delayout : signed(15 downto 0);
 
 COMPONENT delay
@@ -39,16 +40,8 @@ delay0 : delay
    dataout => delayout,
    clk => clk);
    
-process(clk, enable)
-variable gainout : signed (31 downto 0) := to_signed(0,32);
-begin
-  if(enable = '1') then
-    gainout := delayout * gain;
-    dataout <= gainout (25 downto 10);
-  else
-    dataout <= to_signed(0,16);
-  end if;
-end process;
+gainout <= delayout * gain;
+dataout <= gainout (25 downto 10) when enable = '1' else to_signed(0,16);
 
 end revarch;
    

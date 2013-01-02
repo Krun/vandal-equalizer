@@ -7,8 +7,6 @@ entity multiplier_16x16b is
 port (
     sigA : in signed (15 downto 0);
     sigB : in signed (15 downto 0);
-    cin : in std_logic;
-    cout : out std_logic;
     mult : out signed (31 downto 0)
          );
 end multiplier_16x16b;

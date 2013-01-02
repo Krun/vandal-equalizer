@@ -1,15 +1,3 @@
-# Compile of tmultiplier_16x16b.vhd failed with 1 errors.
-# Compile of tmultiplier_16x16b.vhd was successful.
-# Compile of tadder_16b.vhd was successful.
-# Compile of adder_16b.vhd was successful.
-# Compile of carry_bypass_block.vhd was successful.
-# Compile of csm_block.vhd was successful.
-# Compile of delay.vhd was successful.
-# Compile of equalizer_system.vhd was successful.
-# Compile of FA.vhd was successful.
-# Compile of FA_m.vhd was successful.
-# Compile of filter_bench.vhd was successful.
-# Compile of filter_generic.vhd was successful.
 # Compile of multiplier_16x16b.vhd was successful.
 # Compile of reverb.vhd was successful.
 # Compile of tadder_16b.vhd was successful.
@@ -19,8 +7,22 @@
 # Compile of vumetro.vhd was successful.
 # Compile of vumetro_it.vhd was successful.
 # Compile of tmultiplier_16x16b.vhd was successful.
-# 18 compiles, 0 failed with no errors. 
-vsim work.test_multiplier_16x16b
+# 9 compiles, 0 failed with no errors. 
+# Compile of adder_16b.vhd was successful.
+# Compile of carry_bypass_block.vhd was successful.
+# Compile of csm_block.vhd was successful.
+# Compile of delay.vhd was successful.
+# Compile of equalizer_system.vhd was successful.
+# Compile of FA.vhd was successful.
+# Compile of FA_m.vhd was successful.
+# Compile of filter_bench.vhd was successful.
+# Compile of filter_generic.vhd was successful.
+# Compile of csm_lastblock.vhd was successful.
+# 10 compiles, 0 failed with no errors. 
+# Compile of multiplier_16x16b.vhd was successful.
+# Compile of reverb_m.vhd was successful.
+# Compile of treverb_m.vhd was successful.
+vsim work.test_reverb_m
 # //  ModelSim PE Student Edition 10.1d Nov  2 2012 
 # //
 # //  Copyright 1991-2012 Mentor Graphics Corporation
@@ -34,366 +36,429 @@ vsim work.test_multiplier_16x16b
 # // THE ModelSim PE Student Edition IS NOT A SUPPORTED PRODUCT.
 # // FOR HIGHER EDUCATION PURPOSES ONLY
 # //
-# vsim work.test_multiplier_16x16b 
+# vsim work.test_reverb_m 
 # Loading std.standard
 # Loading std.textio(body)
 # Loading ieee.std_logic_1164(body)
 # Loading ieee.numeric_std(body)
-# Loading work.test_multiplier_16x16b(only)
+# Loading work.test_reverb_m(only)
+# Loading work.reverb_m(revarch_mod)
+# Loading work.delay(arch_delay)
 # Loading work.multiplier_16x16b(carry_save_arch)
 # Loading work.csm_block(csmb_arch)
 # Loading work.fa(full_adder_arch)
-# ** Warning: (vsim-3473) Component instance "csmlb : csm_lastblock" is not bound.
-#    Time: 0 ns  Iteration: 0  Instance: /test_multiplier_16x16b/mult File: D:/Users/Adrian/prog/vandal-equalizer/multiplier_16x16b.vhd
-# ** Warning: Design size of 13103 statements or 225 leaf instances exceeds ModelSim PE Student Edition recommended capacity.
+# Loading work.csm_lastblock(ripple_carry_arch)
+# ** Warning: Design size of 13604 statements or 241 leaf instances exceeds ModelSim PE Student Edition recommended capacity.
 # Expect performance to be quite adversely affected.
-add wave sim:/test_multiplier_16x16b/*
+add wave sim:/test_reverb_m/*
 run
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 0 ns  Iteration: 0  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 0 ns  Iteration: 1  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 0 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 0 ns  Iteration: 3  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 1 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 2 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 3 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 4 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 5 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 6 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 7 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 8 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 9 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 10 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 11 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 12 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 13 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 14 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 15 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 50 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 53 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 60 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 100 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 100 ns  Iteration: 5  Instance: /test_multiplier_16x16b
 run
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 101 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 102 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 103 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 104 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 105 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 107 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 108 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 110 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 111 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 150 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 150 ns  Iteration: 3  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 151 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 152 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 153 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 154 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 155 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 156 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 157 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 158 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 159 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 160 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 161 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 162 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 200 ns  Iteration: 2  Instance: /test_multiplier_16x16b
 run
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 201 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 202 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 250 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 250 ns  Iteration: 3  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 251 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 252 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 253 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 254 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 255 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 256 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 257 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 258 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 259 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 260 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 261 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 262 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 263 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 264 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 265 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 300 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# Compile of multiplier_16x16b.vhd was successful.
-# Compile of csm_lastblock.vhd failed with 2 errors.
-# Compile of csm_lastblock.vhd was successful.
-# Compile of adder_16b.vhd was successful.
-# Compile of carry_bypass_block.vhd was successful.
-# Compile of csm_block.vhd was successful.
-# Compile of delay.vhd was successful.
-# Compile of equalizer_system.vhd was successful.
-# Compile of FA.vhd was successful.
-# Compile of FA_m.vhd was successful.
-# Compile of filter_bench.vhd was successful.
-# Compile of filter_generic.vhd was successful.
-# Compile of multiplier_16x16b.vhd was successful.
+run
+run
+run
+vcom -work work -2002 -explicit -O0 D:/Users/Adrian/prog/vandal-equalizer/mejoras/treverb_m.vhd
+# Model Technology ModelSim PE Student Edition vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity test_reverb_m
+# -- Compiling architecture only of test_reverb_m
+restart -f
+# Loading work.test_reverb_m(only)
+# ** Warning: Design size of 14130 statements or 241 leaf instances exceeds ModelSim PE Student Edition recommended capacity.
+# Expect performance to be quite adversely affected.
+run
+run
+run
+vcom -work work -2002 -explicit -O0 D:/Users/Adrian/prog/vandal-equalizer/mejoras/treverb_m.vhd
+# Model Technology ModelSim PE Student Edition vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity test_reverb_m
+# -- Compiling architecture only of test_reverb_m
+restart -f
+# Loading work.test_reverb_m(only)
+# ** Warning: Design size of 14132 statements or 241 leaf instances exceeds ModelSim PE Student Edition recommended capacity.
+# Expect performance to be quite adversely affected.
+run
+run
+run
+run
+run
+run
+vcom -work work -2002 -explicit -O0 D:/Users/Adrian/prog/vandal-equalizer/mejoras/treverb_m.vhd
+# Model Technology ModelSim PE Student Edition vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity test_reverb_m
+# -- Compiling architecture only of test_reverb_m
+restart -f
+# Loading work.test_reverb_m(only)
+# ** Warning: Design size of 14132 statements or 241 leaf instances exceeds ModelSim PE Student Edition recommended capacity.
+# Expect performance to be quite adversely affected.
+run
+run
+run
+run
+vcom -work work -2002 -explicit -O0 D:/Users/Adrian/prog/vandal-equalizer/mejoras/treverb_m.vhd
+# Model Technology ModelSim PE Student Edition vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity test_reverb_m
+# ** Error: D:/Users/Adrian/prog/vandal-equalizer/mejoras/treverb_m.vhd(8): (vcom-1136) Unknown identifier "sout2".
+# 
+# ** Error: D:/Users/Adrian/prog/vandal-equalizer/mejoras/treverb_m.vhd(8): Bad resolution function (SIGNED) for type (error).
+# ** Error: D:/Users/Adrian/prog/vandal-equalizer/mejoras/treverb_m.vhd(8): near ":": expecting ';' or ')'
+# C:/Program Files (x86)/Modeltech_pe_edu_10.1d/win32pe_edu/vcom failed.
+vcom -work work -2002 -explicit -O0 D:/Users/Adrian/prog/vandal-equalizer/mejoras/treverb_m.vhd
+# Model Technology ModelSim PE Student Edition vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity test_reverb_m
+# ** Error: D:/Users/Adrian/prog/vandal-equalizer/mejoras/treverb_m.vhd(7): near ",": expecting ';' or ')'
+# C:/Program Files (x86)/Modeltech_pe_edu_10.1d/win32pe_edu/vcom failed.
+vcom -work work -2002 -explicit -O0 D:/Users/Adrian/prog/vandal-equalizer/mejoras/treverb_m.vhd
+# Model Technology ModelSim PE Student Edition vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity test_reverb_m
+# -- Compiling architecture only of test_reverb_m
+# ** Error: D:/Users/Adrian/prog/vandal-equalizer/mejoras/treverb_m.vhd(42): (vcom-1141) Identifier "reverb" does not identify a component declaration.
+# 
+# ** Error: D:/Users/Adrian/prog/vandal-equalizer/mejoras/treverb_m.vhd(68): VHDL Compiler exiting
+# C:/Program Files (x86)/Modeltech_pe_edu_10.1d/win32pe_edu/vcom failed.
+quit -sim
+# Compile of treverb_m.vhd failed with 2 errors.
+# Compile of treverb_m.vhd was successful.
+vsim work.test_reverb_m
+# vsim work.test_reverb_m 
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.test_reverb_m(only)
+# Loading work.reverb_m(revarch_mod)
+# Loading work.delay(arch_delay)
+# Loading work.multiplier_16x16b(carry_save_arch)
+# Loading work.csm_block(csmb_arch)
+# Loading work.fa(full_adder_arch)
+# Loading work.csm_lastblock(ripple_carry_arch)
+# Loading work.reverb(revarch)
+# ** Warning: Design size of 13692 statements or 242 leaf instances exceeds ModelSim PE Student Edition recommended capacity.
+# Expect performance to be quite adversely affected.
+add wave sim:/test_reverb_m/*
+run
+run
+run
+run
+quit -sim
+# Compile of reverb.vhd failed with 2 errors.
+# Compile of reverb.vhd was successful with warnings.
+# Compile of treverb_m.vhd was successful.
+vsim work.test_reverb_m
+# vsim work.test_reverb_m 
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.test_reverb_m(only)
+# Loading work.reverb_m(revarch_mod)
+# Loading work.delay(arch_delay)
+# Loading work.multiplier_16x16b(carry_save_arch)
+# Loading work.csm_block(csmb_arch)
+# Loading work.fa(full_adder_arch)
+# Loading work.csm_lastblock(ripple_carry_arch)
+# Loading work.reverb(revarch)
+# ** Fatal: (vsim-3471) Slice range (25 downto 10) does not belong to the prefix index range (15 downto 0).
+#    Time: 0 ns  Iteration: 0  Process: /test_reverb_m/reverb1/line__43 File: D:/Users/Adrian/prog/vandal-equalizer/reverb.vhd
+# FATAL ERROR while loading design
+# Error loading design
 # Compile of reverb.vhd was successful.
-# Compile of tadder_16b.vhd was successful.
-# Compile of tdelay.vhd was successful.
-# Compile of tfilter_generic.vhd was successful.
-# Compile of tvumetro_it.vhd was successful.
-# Compile of vumetro.vhd was successful.
-# Compile of vumetro_it.vhd was successful.
-# Compile of tmultiplier_16x16b.vhd was successful.
-# Compile of csm_lastblock.vhd was successful.
-# 19 compiles, 0 failed with no errors. 
-quit -sim
-vsim work.test_multiplier_16x16b
-# vsim work.test_multiplier_16x16b 
+# Compile of reverb_m.vhd was successful.
+vsim work.test_reverb_m
+# vsim work.test_reverb_m 
 # Loading std.standard
 # Loading std.textio(body)
 # Loading ieee.std_logic_1164(body)
 # Loading ieee.numeric_std(body)
-# Loading work.test_multiplier_16x16b(only)
+# Loading work.test_reverb_m(only)
+# Loading work.reverb_m(revarch_mod)
+# Loading work.delay(arch_delay)
 # Loading work.multiplier_16x16b(carry_save_arch)
 # Loading work.csm_block(csmb_arch)
 # Loading work.fa(full_adder_arch)
 # Loading work.csm_lastblock(ripple_carry_arch)
-# ** Warning: Design size of 13545 statements or 240 leaf instances exceeds ModelSim PE Student Edition recommended capacity.
+# Loading work.reverb(revarch)
+# ** Warning: Design size of 13692 statements or 242 leaf instances exceeds ModelSim PE Student Edition recommended capacity.
 # Expect performance to be quite adversely affected.
-add wave sim:/test_multiplier_16x16b/*
+add wave sim:/test_reverb_m/*
+run
+run
+run
+run
+run
+vcom -work work -2002 -explicit -O0 D:/Users/Adrian/prog/vandal-equalizer/mejoras/treverb_m.vhd
+# Model Technology ModelSim PE Student Edition vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity test_reverb_m
+# -- Compiling architecture only of test_reverb_m
+restart -f
+# Loading work.test_reverb_m(only)
+# ** Warning: Design size of 14228 statements or 242 leaf instances exceeds ModelSim PE Student Edition recommended capacity.
+# Expect performance to be quite adversely affected.
+run
+run
+run
+run
+run
+quit -sim
+# Compile of filter_generic_m.vhd failed with 23 errors.
+# Compile of filter_generic_m.vhd failed with 23 errors.
+# Compile of filter_generic_m.vhd failed with 6 errors.
+# Compile of filter_generic_m.vhd failed with 6 errors.
+# Compile of filter_generic_m.vhd failed with 8 errors.
+# Compile of reverb_m.vhd was successful.
+# Compile of filter_generic_m.vhd failed with 8 errors.
+# Compile of filter_generic_m.vhd failed with 6 errors.
+# Compile of filter_generic_m.vhd failed with 6 errors.
+# Compile of filter_generic_m.vhd was successful.
+# Compile of filter_generic_m.vhd was successful.
+vsim work.filter_generic_m
+# vsim work.filter_generic_m 
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.filter_generic_m(filter_arch_mod)
+# Loading work.multiplier_16x16b(carry_save_arch)
+# Loading work.csm_block(csmb_arch)
+# Loading work.fa(full_adder_arch)
+# Loading work.csm_lastblock(ripple_carry_arch)
+# Loading work.adder_16b(carry_bypass_arch)
+# Loading work.carry_bypass_block(cbb_arch)
+# Loading work.fa_m(full_adder_modified_arch)
+# ** Warning: Design size of 41454 statements or 1504 leaf instances exceeds ModelSim PE Student Edition recommended capacity.
+# Expect performance to be quite adversely affected.
+quit -sim
+# Compile of filter_generic_m.vhd was successful.
+# Compile of tfilter_generic_m.vhd failed with 8 errors.
+# Compile of tfilter_generic_m.vhd was successful.
+vsim work.test_filter_generic_m
+# vsim work.test_filter_generic_m 
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.test_filter_generic_m(only)
+# Loading work.filter_generic(filter_arch)
+# Loading work.filter_generic_m(filter_arch_mod)
+# Loading work.multiplier_16x16b(carry_save_arch)
+# Loading work.csm_block(csmb_arch)
+# Loading work.fa(full_adder_arch)
+# Loading work.csm_lastblock(ripple_carry_arch)
+# Loading work.adder_16b(carry_bypass_arch)
+# Loading work.carry_bypass_block(cbb_arch)
+# Loading work.fa_m(full_adder_modified_arch)
+# ** Warning: Design size of 239600 statements or 10535 leaf instances exceeds ModelSim PE Student Edition recommended capacity.
+# Expect performance to be quite adversely affected.
+add wave  \
+sim:/test_filter_generic_m/out0 \
+sim:/test_filter_generic_m/out0m
+add wave  \
+sim:/test_filter_generic_m/out1 \
+sim:/test_filter_generic_m/out1m
+add wave  \
+sim:/test_filter_generic_m/out2 \
+sim:/test_filter_generic_m/out2m
+add wave  \
+sim:/test_filter_generic_m/out3 \
+sim:/test_filter_generic_m/out3m
+add wave  \
+sim:/test_filter_generic_m/out4 \
+sim:/test_filter_generic_m/out4m
+add wave  \
+sim:/test_filter_generic_m/out5 \
+sim:/test_filter_generic_m/out5m
+add wave  \
+sim:/test_filter_generic_m/out6 \
+sim:/test_filter_generic_m/out6m
+run
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ns  Iteration: 0  Instance: /test_filter_generic_m
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ns  Iteration: 0  Instance: /test_filter_generic_m
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ns  Iteration: 0  Instance: /test_filter_generic_m
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ns  Iteration: 0  Instance: /test_filter_generic_m
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ns  Iteration: 0  Instance: /test_filter_generic_m
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ns  Iteration: 0  Instance: /test_filter_generic_m
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ns  Iteration: 0  Instance: /test_filter_generic_m
+run
+run
+run
+run
+quit -sim
+# Compile of tfilter_generic_m.vhd was successful.
+# Compile of tfilter_generic_m.vhd was successful.
+vsim work.test_filter_generic_m
+# vsim work.test_filter_generic_m 
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.test_filter_generic_m(only)
+# Loading work.filter_generic(filter_arch)
+# Loading work.filter_generic_m(filter_arch_mod)
+# Loading work.multiplier_16x16b(carry_save_arch)
+# Loading work.csm_block(csmb_arch)
+# Loading work.fa(full_adder_arch)
+# Loading work.csm_lastblock(ripple_carry_arch)
+# Loading work.adder_16b(carry_bypass_arch)
+# Loading work.carry_bypass_block(cbb_arch)
+# Loading work.fa_m(full_adder_modified_arch)
+# ** Warning: Design size of 239600 statements or 10535 leaf instances exceeds ModelSim PE Student Edition recommended capacity.
+# Expect performance to be quite adversely affected.
+add wave  \
+sim:/test_filter_generic_m/valid0 \
+sim:/test_filter_generic_m/valid1 \
+sim:/test_filter_generic_m/valid2 \
+sim:/test_filter_generic_m/valid3 \
+sim:/test_filter_generic_m/valid4 \
+sim:/test_filter_generic_m/valid5 \
+sim:/test_filter_generic_m/valid6
 run
 # ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 0 ns  Iteration: 0  Instance: /test_multiplier_16x16b
+#    Time: 0 ns  Iteration: 0  Instance: /test_filter_generic_m
 # ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 0 ns  Iteration: 1  Instance: /test_multiplier_16x16b
+#    Time: 0 ns  Iteration: 0  Instance: /test_filter_generic_m
 # ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 0 ns  Iteration: 2  Instance: /test_multiplier_16x16b
+#    Time: 0 ns  Iteration: 0  Instance: /test_filter_generic_m
 # ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 0 ns  Iteration: 3  Instance: /test_multiplier_16x16b
+#    Time: 0 ns  Iteration: 0  Instance: /test_filter_generic_m
 # ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 1 ns  Iteration: 2  Instance: /test_multiplier_16x16b
+#    Time: 0 ns  Iteration: 0  Instance: /test_filter_generic_m
 # ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 2 ns  Iteration: 2  Instance: /test_multiplier_16x16b
+#    Time: 0 ns  Iteration: 0  Instance: /test_filter_generic_m
 # ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 3 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 4 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 5 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 6 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 7 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 8 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 9 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 10 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 11 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 12 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 13 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 14 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 15 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 16 ns  Iteration: 2  Instance: /test_multiplier_16x16b
+#    Time: 0 ns  Iteration: 0  Instance: /test_filter_generic_m
+run
+run
+run
 run
 run
 run
 run
 run
 restart -f
-vcom -work work -2002 -explicit -O0 D:/Users/Adrian/prog/vandal-equalizer/tmultiplier_16x16b.vhd
-# Model Technology ModelSim PE Student Edition vcom 10.1d Compiler 2012.11 Nov  2 2012
-# -- Loading package STANDARD
-# -- Loading package TEXTIO
-# -- Loading package std_logic_1164
-# -- Loading package NUMERIC_STD
-# -- Compiling entity test_multiplier_16x16b
-# -- Compiling architecture only of test_multiplier_16x16b
-vcom -work work -2002 -explicit -O0 D:/Users/Adrian/prog/vandal-equalizer/tmultiplier_16x16b.vhd
-# Model Technology ModelSim PE Student Edition vcom 10.1d Compiler 2012.11 Nov  2 2012
-# -- Loading package STANDARD
-# -- Loading package TEXTIO
-# -- Loading package std_logic_1164
-# -- Loading package NUMERIC_STD
-# -- Compiling entity test_multiplier_16x16b
-# -- Compiling architecture only of test_multiplier_16x16b
-restart -f
-# Loading work.test_multiplier_16x16b(only)
-# ** Warning: Design size of 14062 statements or 240 leaf instances exceeds ModelSim PE Student Edition recommended capacity.
+# ** Warning: Design size of 257741 statements or 10535 leaf instances exceeds ModelSim PE Student Edition recommended capacity.
 # Expect performance to be quite adversely affected.
-add wave sim:/test_multiplier_16x16b/*
+add wave  \
+sim:/test_filter_generic_m/out0 \
+sim:/test_filter_generic_m/out1 \
+sim:/test_filter_generic_m/out2 \
+sim:/test_filter_generic_m/out3 \
+sim:/test_filter_generic_m/out4 \
+sim:/test_filter_generic_m/out5 \
+sim:/test_filter_generic_m/out6 \
+sim:/test_filter_generic_m/out0m \
+sim:/test_filter_generic_m/out1m \
+sim:/test_filter_generic_m/out2m \
+sim:/test_filter_generic_m/out3m \
+sim:/test_filter_generic_m/out4m \
+sim:/test_filter_generic_m/out5m \
+sim:/test_filter_generic_m/out6m
 run
 # ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 0 ns  Iteration: 0  Instance: /test_multiplier_16x16b
+#    Time: 0 ns  Iteration: 0  Instance: /test_filter_generic_m
 # ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 0 ns  Iteration: 1  Instance: /test_multiplier_16x16b
+#    Time: 0 ns  Iteration: 0  Instance: /test_filter_generic_m
 # ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 0 ns  Iteration: 2  Instance: /test_multiplier_16x16b
+#    Time: 0 ns  Iteration: 0  Instance: /test_filter_generic_m
 # ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 0 ns  Iteration: 3  Instance: /test_multiplier_16x16b
+#    Time: 0 ns  Iteration: 0  Instance: /test_filter_generic_m
 # ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 1 ns  Iteration: 2  Instance: /test_multiplier_16x16b
+#    Time: 0 ns  Iteration: 0  Instance: /test_filter_generic_m
 # ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 2 ns  Iteration: 2  Instance: /test_multiplier_16x16b
+#    Time: 0 ns  Iteration: 0  Instance: /test_filter_generic_m
 # ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 3 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 4 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 5 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 6 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 7 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 8 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 9 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 10 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 11 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 12 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 13 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 14 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 15 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 16 ns  Iteration: 2  Instance: /test_multiplier_16x16b
+#    Time: 0 ns  Iteration: 0  Instance: /test_filter_generic_m
+run
+run
+run
 run
 run
 run
 quit -sim
-# Compile of multiplier_16x16b.vhd was successful.
-vsim work.test_multiplier_16x16b
-# vsim work.test_multiplier_16x16b 
+vsim work.filter_generic
+# vsim work.filter_generic 
 # Loading std.standard
 # Loading std.textio(body)
 # Loading ieee.std_logic_1164(body)
 # Loading ieee.numeric_std(body)
-# Loading work.test_multiplier_16x16b(only)
+# Loading work.filter_generic(filter_arch)
+quit -sim
+# Compile of filter_generic.vhd failed with 2 errors.
+# Compile of filter_generic.vhd was successful.
+# Compile of tfilter_generic_m.vhd was successful.
+vsim work.test_filter_generic_m
+# vsim work.test_filter_generic_m 
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.test_filter_generic_m(only)
+# Loading work.filter_generic(filter_arch)
+# Loading work.filter_generic_m(filter_arch_mod)
 # Loading work.multiplier_16x16b(carry_save_arch)
 # Loading work.csm_block(csmb_arch)
 # Loading work.fa(full_adder_arch)
 # Loading work.csm_lastblock(ripple_carry_arch)
-# ** Warning: Design size of 13545 statements or 240 leaf instances exceeds ModelSim PE Student Edition recommended capacity.
+# Loading work.adder_16b(carry_bypass_arch)
+# Loading work.carry_bypass_block(cbb_arch)
+# Loading work.fa_m(full_adder_modified_arch)
+# ** Warning: Design size of 239847 statements or 10535 leaf instances exceeds ModelSim PE Student Edition recommended capacity.
 # Expect performance to be quite adversely affected.
-add wave sim:/test_multiplier_16x16b/*
+add wave sim:/test_filter_generic_m/*
 run
 # ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 0 ns  Iteration: 0  Instance: /test_multiplier_16x16b
+#    Time: 0 ns  Iteration: 0  Instance: /test_filter_generic_m
 # ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 0 ns  Iteration: 1  Instance: /test_multiplier_16x16b
+#    Time: 0 ns  Iteration: 0  Instance: /test_filter_generic_m
 # ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 0 ns  Iteration: 2  Instance: /test_multiplier_16x16b
+#    Time: 0 ns  Iteration: 0  Instance: /test_filter_generic_m
 # ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 0 ns  Iteration: 3  Instance: /test_multiplier_16x16b
+#    Time: 0 ns  Iteration: 0  Instance: /test_filter_generic_m
 # ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 1 ns  Iteration: 2  Instance: /test_multiplier_16x16b
+#    Time: 0 ns  Iteration: 0  Instance: /test_filter_generic_m
 # ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 2 ns  Iteration: 2  Instance: /test_multiplier_16x16b
+#    Time: 0 ns  Iteration: 0  Instance: /test_filter_generic_m
 # ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 3 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 4 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 5 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 6 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 7 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 8 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 9 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 10 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 11 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 12 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 13 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 14 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 15 ns  Iteration: 2  Instance: /test_multiplier_16x16b
-# ** Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
-#    Time: 16 ns  Iteration: 2  Instance: /test_multiplier_16x16b
+#    Time: 0 ns  Iteration: 0  Instance: /test_filter_generic_m
+run
+run
+run
+run
+run
+run
 run
 run
 run
@@ -402,3 +467,9 @@ run
 run
 run
 quit -sim
+# Compile of treverb_m.vhd was successful.
+# Compile of filter_generic_m.vhd was successful.
+# Compile of filter_bench_m.vhd was successful.
+# Compile of filter_bench_m.vhd was successful.
+# Compile of equalizer_system_m.vhd failed with 1 errors.
+# Compile of equalizer_system_m.vhd was successful.
