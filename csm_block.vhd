@@ -5,12 +5,13 @@ use ieee.numeric_std.all;
 
 entity csm_block is
 port (
-    sig1 : in signed (15 downto 0);
-    sig2 : in signed (15 downto 0);
-    y_i : in std_logic;
-    cin : in std_logic_vector(15 downto 0);
-    cout : out signed (15 downto 0);
-    sum : out signed (15 downto 0)
+    p_sum : in std_logic_vector (14 downto 0); --sum from the previous adder row
+    p_car : in std_logic_vector(14 downto 0); --carry from previous adder row
+    p_ppr : in std_logic_vector(15 downto 0); --previous partial product    
+    c_ppr : in std_logic_vector(15 downto 0); -- current partial product
+    
+    car : out std_logic_vector (14 downto 0); --carry to next adder row
+    sum : out std_logic_vector (14 downto 0) --sum vector to next adder row
          );
 end csm_block;
 
@@ -25,192 +26,131 @@ port (
     sum : out std_logic
          );
 END COMPONENT ;
-signal carry : std_logic_vector(14 downto 0) := "000000000000000";
+
 begin
 
 fa0 : FA
    PORT MAP (
-   a => sig1(0),
-   b => sig2(0),
-   ci => cin,
-   co => carry(0),
+   a => p_sum(1),
+   b => c_ppr(0),
+   ci => p_car(0),
+   co => car(0),
    sum => sum(0));
    
 fa1 : FA
    PORT MAP (
-   a => sig1(1),
-   b => sig2(1),
-   ci => carry(0),
-   co => carry(1),
+   a => p_sum(2),
+   b => c_ppr(1),
+   ci => p_car(1),
+   co => car(1),
    sum => sum(1));
    
 
 fa2 : FA
    PORT MAP (
-   a => sig1(2),
-   b => sig2(2),
-   ci => carry(1),
-   co => carry(2),
+   a => p_sum(3),
+   b => c_ppr(2),
+   ci => p_car(2),
+   co => car(2),
    sum => sum(2));   
    
    
 fa3 : FA
    PORT MAP (
-   a => sig1(3),
-   b => sig2(3),
-   ci => carry(2),
-   co => carry(3),
+   a => p_sum(4),
+   b => c_ppr(3),
+   ci => p_car(3),
+   co => car(3),
    sum => sum(3));
    
 fa4 : FA
    PORT MAP (
-   a => sig1(4),
-   b => sig2(4),
-   ci => carry(3),
-   co => carry(4),
+   a => p_sum(5),
+   b => c_ppr(4),
+   ci => p_car(4),
+   co => car(4),
    sum => sum(4));
    
 fa5 : FA
    PORT MAP (
-   a => sig1(5),
-   b => sig2(5),
-   ci => carry(4),
-   co => carry(5),
+   a => p_sum(6),
+   b => c_ppr(5),
+   ci => p_car(5),
+   co => car(5),
    sum => sum(5));
    
 fa6 : FA
    PORT MAP (
-   a => sig1(6),
-   b => sig2(6),
-   ci => carry(5),
-   co => carry(6),
+   a => p_sum(7),
+   b => c_ppr(6),
+   ci => p_car(6),
+   co => car(6),
    sum => sum(6));
    
    
 fa7 : FA
    PORT MAP (
-   a => sig1(7),
-   b => sig2(7),
-   ci => carry(6),
-   co => carry(7),
+   a => p_sum(8),
+   b => c_ppr(7),
+   ci => p_car(7),
+   co => car(7),
    sum => sum(7));
    
    
 fa8 : FA
    PORT MAP (
-   a => sig1(8),
-   b => sig2(8),
-   ci => carry(7),
-   co => carry(8),
+   a => p_sum(9),
+   b => c_ppr(8),
+   ci => p_car(8),
+   co => car(8),
    sum => sum(8));
    
 fa9 : FA
    PORT MAP (
-   a => sig1(9),
-   b => sig2(9),
-   ci => carry(8),
-   co => carry(9),
+   a => p_sum(10),
+   b => c_ppr(9),
+   ci => p_car(9),
+   co => car(9),
    sum => sum(9));
    
 fa10 : FA
    PORT MAP (
-   a => sig1(10),
-   b => sig2(10),
-   ci => carry(9),
-   co => carry(10),
+   a => p_sum(11),
+   b => c_ppr(10),
+   ci => p_car(10),
+   co => car(10),
    sum => sum(10));
    
 fa11 : FA
    PORT MAP (
-   a => sig1(11),
-   b => sig2(11),
-   ci => carry(10),
-   co => carry(11),
+   a => p_sum(12),
+   b => c_ppr(11),
+   ci => p_car(11),
+   co => car(11),
    sum => sum(11));
    
 fa12 : FA
    PORT MAP (
-   a => sig1(12),
-   b => sig2(12),
-   ci => carry(11),
-   co => carry(12),
+   a => p_sum(13),
+   b => c_ppr(12),
+   ci => p_car(12),
+   co => car(12),
    sum => sum(12));
    
 fa13 : FA
    PORT MAP (
-   a => sig1(13),
-   b => sig2(13),
-   ci => carry(12),
-   co => carry(13),
+   a => p_sum(14),
+   b => c_ppr(13),
+   ci => p_car(13),
+   co => car(13),
    sum => sum(13));
    
 fa14 : FA
    PORT MAP (
-   a => sig1(14),
-   b => sig2(14),
-   ci => carry(13),
-   co => carry(14),
+   a => p_ppr(15),
+   b => c_ppr(14),
+   ci => p_car(14),
+   co => car(14),
    sum => sum(14));
-   
-fa15 : FA
-   PORT MAP (
-   a => sig1(15),
-   b => sig2(15),
-   ci => carry(14),
-   co => cout,
-   sum => sum(15));
 
-end ripple_carry_arch;
-
-architecture carry_bypass_arch of adder_16b is
-  signal sigp : std_logic_vector(15 downto 0) := "0000000000000000";
-  signal sigg : std_logic_vector(15 downto 0) := "0000000000000000";
-  signal carry : std_logic_vector(2 downto 0) := "000";
-  signal sum_v : std_logic_vector(15 downto 0);
-  COMPONENT carry_bypass_block is
-    port (
-        sigp : in std_logic_vector(3 downto 0);
-        sigg : in std_logic_vector(3 downto 0);
-        cin : in std_logic;
-        cout : out std_logic;
-        sum : out std_logic_vector(3 downto 0)
-         );
-  end COMPONENT;
-  begin
-    sigg <= std_logic_vector(sig1) AND std_logic_vector(sig2);
-    sigp <= std_logic_vector(sig1) XOR std_logic_vector(sig2);
-    sum <= signed(sum_v);
-    
-cbb0 : carry_bypass_block
-   PORT MAP (
-   sigp => sigp(3 downto 0),
-   sigg => sigg(3 downto 0),
-   cin => cin,
-   cout => carry(0),
-   sum => sum_v(3 downto 0));
-   
-cbb1 : carry_bypass_block
-   PORT MAP (
-   sigp => sigp(7 downto 4),
-   sigg => sigg(7 downto 4),
-   cin => carry(0),
-   cout => carry(1),
-   sum => sum_v(7 downto 4));
-   
-cbb2 : carry_bypass_block
-   PORT MAP (
-   sigp => sigp(11 downto 8),
-   sigg => sigg(11 downto 8),
-   cin => carry(1),
-   cout => carry(2),
-   sum => sum_v(11 downto 8));
-   
-cbb3 : carry_bypass_block
-   PORT MAP (
-   sigp => sigp(15 downto 12),
-   sigg => sigg(15 downto 12),
-   cin => carry(2),
-   cout => cout,
-   sum => sum_v(15 downto 12)); 
-  
-end carry_bypass_arch;
+end csmb_arch;

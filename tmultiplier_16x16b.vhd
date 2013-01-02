@@ -2,54 +2,44 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity test_adder_16b is
+entity test_multiplier_16x16b is
 port (
  valid : out boolean
 );
 end;
 
-architecture only of test_adder_16b is
+architecture only of test_multiplier_16x16b is
 
-COMPONENT adder_16b
-  port (
-    sig1 : in signed (15 downto 0);
-    sig2 : in signed (15 downto 0);
+COMPONENT multiplier_16x16b
+port (
+    sigA : in signed (15 downto 0);
+    sigB : in signed (15 downto 0);
     cin : in std_logic;
     cout : out std_logic;
-    sum : out signed (15 downto 0)
+    mult : out signed (31 downto 0)
          );
 END COMPONENT ;
 
-for add_ripple_carry : adder_16b use entity work.adder_16b(ripple_carry_arch);
-for add_carry_bypass : adder_16b use entity work.adder_16b(carry_bypass_arch);
 
 SIGNAL sig1 : signed (15 downto 0) := "0000000000000000";
 SIGNAL sig2 : signed (15 downto 0) := "0000000000000000";
-SIGNAL sout_rc : signed (15 downto 0);
-SIGNAL sout_cb : signed (15 downto 0);
-SIGNAL sout_ts : signed (15 downto 0);
+SIGNAL mout_cs : signed (31 downto 0);
+SIGNAL mout_ts : signed (31 downto 0);
 
 begin
 
-sout_ts <= sig1 + sig2;
-valid <= ((sout_rc - sout_ts) OR (sout_rc - sout_ts)) = "0000000000000000";
+mout_ts <= sig1 * sig2;
+valid <= (mout_ts - mout_cs) = "00000000000000000000000000000000";
 
-add_ripple_carry : adder_16b
+mult : multiplier_16x16b
    PORT MAP (
-   sig1 => sig1,
-   sig2 => sig2,
-   sum => sout_rc,
-   cin => '0',
-   cout => open);
+    sigA => sig1,
+    sigB => sig2,
+    cin => '0',
+    cout => open,
+    mult => mout_cs
+    );
    
-add_carry_bypass : adder_16b
-   PORT MAP (
-   sig1 => sig1,
-   sig2 => sig2,
-   sum => sout_cb,
-   cin => '0',
-   cout => open);
-
 stimulus : PROCESS
    begin
    sig1 <= "0000000000000100";
