@@ -1,7 +1,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-
+--http://www.depeca.uah.es/depeca/repositorio/asignaturas/30791/T4_06_simulacion_avanzada.pdf
 entity arch3 is
 end entity arch3;
 architecture comport of arch3 is
