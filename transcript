@@ -1,2 +1,318 @@
+# Compile of filehandler.vhd failed with 1 errors.
+# Compile of filehandler.vhd failed with 1 errors.
+# Compile of filehandler.vhd failed with 1 errors.
+# Compile of filehandler.vhd failed with 1 errors.
+# Compile of filehandler.vhd was successful.
+# Compile of filehandler.vhd failed with 1 errors.
+# Compile of filehandler.vhd failed with 1 errors.
+# Compile of filehandler.vhd failed with 2 errors.
+# Compile of filehandler.vhd failed with 2 errors.
+# Compile of filehandler.vhd failed with 1 errors.
+# Compile of filehandler.vhd failed with 14 errors.
+# Compile of filehandler.vhd failed with 3 errors.
+# Compile of filehandler.vhd failed with 14 errors.
+# Compile of filehandler.vhd failed with 10 errors.
+# Compile of txt_util.vhd was successful.
+# Compile of txt_util.vhd was successful.
+# Compile of txt_util.vhd was successful.
+# Compile of filehandler.vhd failed with 9 errors.
+# Compile of filehandler.vhd failed with 10 errors.
+# Compile of filehandler.vhd failed with 7 errors.
+# Compile of filehandler.vhd failed with 2 errors.
 # Compile of filehandler.vhd was successful.
 # Compile of filehandler.vhd was successful.
+# Compile of tfilter_generic.vhd was successful.
+# Compile of tequalizer_system.vhd failed with 13 errors.
+# Compile of tequalizer_system.vhd failed with 10 errors.
+# Compile of filehandler.vhd failed with 1 errors.
+# Compile of filehandler.vhd failed with 1 errors.
+# Compile of filehandler.vhd was successful.
+# Compile of filehandler.vhd was successful.
+# Compile of equalizer_system.vhd was successful.
+# Compile of tequalizer_system.vhd failed with 1 errors.
+# Compile of tfilter_generic.vhd was successful.
+# Compile of tequalizer_system.vhd failed with 1 errors.
+# Compile of tequalizer_system.vhd failed with 2 errors.
+# Compile of tequalizer_system.vhd was successful.
+vsim work.test_equalizer_system
+# //  ModelSim PE Student Edition 10.1d Nov  2 2012 
+# //
+# //  Copyright 1991-2012 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  THIS WORK CONTAINS TRADE SECRET AND PROPRIETARY INFORMATION
+# //  WHICH IS THE PROPERTY OF MENTOR GRAPHICS CORPORATION OR ITS
+# //  LICENSORS AND IS SUBJECT TO LICENSE TERMS.
+# //
+# // NOT FOR CORPORATE OR PRODUCTION USE.
+# // THE ModelSim PE Student Edition IS NOT A SUPPORTED PRODUCT.
+# // FOR HIGHER EDUCATION PURPOSES ONLY
+# //
+# vsim work.test_equalizer_system 
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.test_equalizer_system(only)
+# Loading work.txt_util(body)
+# Loading work.filehandler(comport)
+# ** Fatal: (vsim-3633) Index range 15 downto 0 is not compatible with index subtype (1 to 2147483647) of std.STANDARD.STRING.
+#    Time: 0 ns  Iteration: 0  Instance: /test_equalizer_system/fh File: D:/Users/Adrian/prog/vandal-equalizer/filehandler.vhd Line: 12
+# FATAL ERROR while loading design
+# Error loading design
+# Compile of tequalizer_system.vhd was successful.
+vsim work.test_equalizer_system
+# vsim work.test_equalizer_system 
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.test_equalizer_system(only)
+# Loading work.txt_util(body)
+# Loading work.filehandler(comport)
+# ** Fatal: (vsim-3633) Index range 15 downto 0 is not compatible with index subtype (1 to 2147483647) of std.STANDARD.STRING.
+#    Time: 0 ns  Iteration: 0  Instance: /test_equalizer_system/fh File: D:/Users/Adrian/prog/vandal-equalizer/filehandler.vhd Line: 12
+# FATAL ERROR while loading design
+# Error loading design
+vcom -work work -2002 -explicit -O0 D:/Users/Adrian/prog/vandal-equalizer/filehandler.vhd
+# Model Technology ModelSim PE Student Edition vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Loading package txt_util
+# -- Compiling entity filehandler
+# -- Compiling architecture comport of filehandler
+vsim work.test_equalizer_system
+# vsim work.test_equalizer_system 
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.test_equalizer_system(only)
+# Loading work.txt_util(body)
+# Loading work.filehandler(comport)
+# ** Fatal: (vsim-3633) Index range 4 downto 0 is not compatible with index subtype (1 to 2147483647) of std.STANDARD.STRING.
+#    Time: 0 ns  Iteration: 0  Instance: /test_equalizer_system/fh File: D:/Users/Adrian/prog/vandal-equalizer/filehandler.vhd Line: 12
+# FATAL ERROR while loading design
+# Error loading design
+vcom -work work -2002 -explicit -O0 D:/Users/Adrian/prog/vandal-equalizer/filehandler.vhd
+# Model Technology ModelSim PE Student Edition vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Loading package txt_util
+# -- Compiling entity filehandler
+# -- Compiling architecture comport of filehandler
+# ** Error: D:/Users/Adrian/prog/vandal-equalizer/filehandler.vhd(35): Expecting a type name, found type conversion (to std.STANDARD.STRING) instead.
+# ** Error: D:/Users/Adrian/prog/vandal-equalizer/filehandler.vhd(31): (vcom-1272) Length of expected is 16; length of actual is 5.
+# 
+# ** Error: D:/Users/Adrian/prog/vandal-equalizer/filehandler.vhd(77): VHDL Compiler exiting
+# C:/Program Files (x86)/Modeltech_pe_edu_10.1d/win32pe_edu/vcom failed.
+vsim -voptargs=+acc work.test_equalizer_system
+# vsim -voptargs=+acc work.test_equalizer_system 
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.test_equalizer_system(only)
+# ** Error: (vsim-13) Recompile work.filehandler(comport) because work.filehandler has changed.
+# 
+# Load interrupted
+# Error loading design
+# Compile of filehandler.vhd failed with 2 errors.
+# Compile of filehandler.vhd failed with 3 errors.
+# Compile of filehandler.vhd failed with 2 errors.
+# Compile of filehandler.vhd was successful.
+vsim work.test_equalizer_system
+# vsim work.test_equalizer_system 
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.test_equalizer_system(only)
+# Loading work.txt_util(body)
+# Loading work.filehandler(comport)
+# Loading work.equalizer_system(whole)
+# Loading work.reverb(revarch)
+# Loading work.delay(arch_delay)
+# Loading work.filter_bench(bench1)
+# Loading work.filter_generic(filter_arch)
+# Loading work.vumetro(arch_vumetro)
+# Loading work.vumetro_it(arch_vumetro_it)
+# ** Warning: (vsim-8683) Uninitialized out port /test_equalizer_system/es/sout(15 downto 0) has no driver.
+# 
+# This port will contribute value (UUUUUUUUUUUUUUUU) to the signal network.
+# 
+add wave sim:/test_equalizer_system/*
+run
+# ** Warning: NUMERIC_STD.">": metavalue detected, returning FALSE
+#    Time: 50 ns  Iteration: 1  Instance: /test_equalizer_system/es/vumetro0/vumetro0
+# ** Warning: NUMERIC_STD.">": metavalue detected, returning FALSE
+#    Time: 50 ns  Iteration: 1  Instance: /test_equalizer_system/es/vumetro0/vumetro1
+# ** Warning: NUMERIC_STD.">": metavalue detected, returning FALSE
+#    Time: 50 ns  Iteration: 1  Instance: /test_equalizer_system/es/vumetro0/vumetro2
+# ** Warning: NUMERIC_STD.">": metavalue detected, returning FALSE
+#    Time: 50 ns  Iteration: 1  Instance: /test_equalizer_system/es/vumetro0/vumetro3
+# ** Warning: NUMERIC_STD.">": metavalue detected, returning FALSE
+#    Time: 50 ns  Iteration: 1  Instance: /test_equalizer_system/es/vumetro0/vumetro4
+# ** Warning: NUMERIC_STD.">": metavalue detected, returning FALSE
+#    Time: 50 ns  Iteration: 1  Instance: /test_equalizer_system/es/vumetro0/vumetro5
+# ** Warning: NUMERIC_STD.">": metavalue detected, returning FALSE
+#    Time: 50 ns  Iteration: 1  Instance: /test_equalizer_system/es/vumetro0/vumetro6
+run
+run
+run
+run
+run
+quit -sim
+vsim work.test_equalizer_system
+# vsim work.test_equalizer_system 
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.test_equalizer_system(only)
+# Loading work.txt_util(body)
+# Loading work.filehandler(comport)
+# Loading work.equalizer_system(whole)
+# Loading work.reverb(revarch)
+# Loading work.delay(arch_delay)
+# Loading work.filter_bench(bench1)
+# Loading work.filter_generic(filter_arch)
+# Loading work.vumetro(arch_vumetro)
+# Loading work.vumetro_it(arch_vumetro_it)
+# ** Warning: (vsim-8683) Uninitialized out port /test_equalizer_system/es/sout(15 downto 0) has no driver.
+# 
+# This port will contribute value (UUUUUUUUUUUUUUUU) to the signal network.
+# 
+add wave  \
+sim:/test_equalizer_system/es/sout
+run
+# ** Warning: NUMERIC_STD.">": metavalue detected, returning FALSE
+#    Time: 50 ns  Iteration: 1  Instance: /test_equalizer_system/es/vumetro0/vumetro0
+# ** Warning: NUMERIC_STD.">": metavalue detected, returning FALSE
+#    Time: 50 ns  Iteration: 1  Instance: /test_equalizer_system/es/vumetro0/vumetro1
+# ** Warning: NUMERIC_STD.">": metavalue detected, returning FALSE
+#    Time: 50 ns  Iteration: 1  Instance: /test_equalizer_system/es/vumetro0/vumetro2
+# ** Warning: NUMERIC_STD.">": metavalue detected, returning FALSE
+#    Time: 50 ns  Iteration: 1  Instance: /test_equalizer_system/es/vumetro0/vumetro3
+# ** Warning: NUMERIC_STD.">": metavalue detected, returning FALSE
+#    Time: 50 ns  Iteration: 1  Instance: /test_equalizer_system/es/vumetro0/vumetro4
+# ** Warning: NUMERIC_STD.">": metavalue detected, returning FALSE
+#    Time: 50 ns  Iteration: 1  Instance: /test_equalizer_system/es/vumetro0/vumetro5
+# ** Warning: NUMERIC_STD.">": metavalue detected, returning FALSE
+#    Time: 50 ns  Iteration: 1  Instance: /test_equalizer_system/es/vumetro0/vumetro6
+run
+run
+run
+run
+quit -sim
+vcom -work work -2002 -explicit -O0 D:/Users/Adrian/prog/vandal-equalizer/equalizer_system.vhd
+# Model Technology ModelSim PE Student Edition vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity equalizer_system
+# -- Compiling architecture whole of equalizer_system
+vsim work.test_equalizer_system
+# vsim work.test_equalizer_system 
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.test_equalizer_system(only)
+# Loading work.txt_util(body)
+# Loading work.filehandler(comport)
+# Loading work.equalizer_system(whole)
+# Loading work.reverb(revarch)
+# Loading work.delay(arch_delay)
+# Loading work.filter_bench(bench1)
+# Loading work.filter_generic(filter_arch)
+# Loading work.vumetro(arch_vumetro)
+# Loading work.vumetro_it(arch_vumetro_it)
+add wave sim:/test_equalizer_system/*
+run
+# ** Warning: NUMERIC_STD.">": metavalue detected, returning FALSE
+#    Time: 50 ns  Iteration: 1  Instance: /test_equalizer_system/es/vumetro0/vumetro0
+# ** Warning: NUMERIC_STD.">": metavalue detected, returning FALSE
+#    Time: 50 ns  Iteration: 1  Instance: /test_equalizer_system/es/vumetro0/vumetro1
+# ** Warning: NUMERIC_STD.">": metavalue detected, returning FALSE
+#    Time: 50 ns  Iteration: 1  Instance: /test_equalizer_system/es/vumetro0/vumetro2
+# ** Warning: NUMERIC_STD.">": metavalue detected, returning FALSE
+#    Time: 50 ns  Iteration: 1  Instance: /test_equalizer_system/es/vumetro0/vumetro3
+# ** Warning: NUMERIC_STD.">": metavalue detected, returning FALSE
+#    Time: 50 ns  Iteration: 1  Instance: /test_equalizer_system/es/vumetro0/vumetro4
+# ** Warning: NUMERIC_STD.">": metavalue detected, returning FALSE
+#    Time: 50 ns  Iteration: 1  Instance: /test_equalizer_system/es/vumetro0/vumetro5
+# ** Warning: NUMERIC_STD.">": metavalue detected, returning FALSE
+#    Time: 50 ns  Iteration: 1  Instance: /test_equalizer_system/es/vumetro0/vumetro6
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+quit -sim

@@ -95,6 +95,7 @@ end component;
 begin
 
 fb_in <= rv_out + sin;
+sout <= fb_out;
 
 reverb0 : reverb
   GENERIC MAP (
