@@ -1,18 +1,18 @@
 % Programa de comprobación de las respuestas de los filtros
-% Los archivos ..\signals\filterX_nogain.dat deben contener esas respuestas
-% antes de aplicar la atenuación de cada filtro
+% Los archivos ..\signals\filterX.dat deben contener esas respuestas
+% despues de aplicar la atenuación de cada filtro
 %
-% Simular para ello tfilter_generic.vhd
+% Simular para ello tfilter_impz.vhd
 
-atenuadas = false;
+atenuadas = true;
 
-filt0 = RdVHDL('..\signals\filter0_nogain.dat', 6, 10);
-filt1 = RdVHDL('..\signals\filter1_nogain.dat', 6, 10);
-filt2 = RdVHDL('..\signals\filter2_nogain.dat', 6, 10);
-filt3 = RdVHDL('..\signals\filter3_nogain.dat', 6, 10);
-filt4 = RdVHDL('..\signals\filter4_nogain.dat', 6, 10);
-filt5 = RdVHDL('..\signals\filter5_nogain.dat', 6, 10);
-filt6 = RdVHDL('..\signals\filter6_nogain.dat', 6, 10);
+filt0 = RdVHDL('..\signals\filter0.dat', 6, 10);
+filt1 = RdVHDL('..\signals\filter1.dat', 6, 10);
+filt2 = RdVHDL('..\signals\filter2.dat', 6, 10);
+filt3 = RdVHDL('..\signals\filter3.dat', 6, 10);
+filt4 = RdVHDL('..\signals\filter4.dat', 6, 10);
+filt5 = RdVHDL('..\signals\filter5.dat', 6, 10);
+filt6 = RdVHDL('..\signals\filter6.dat', 6, 10);
 
 h = [filt0 filt1 filt2 filt3 filt4 filt5 filt6];
 

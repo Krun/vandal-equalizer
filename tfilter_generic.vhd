@@ -5,7 +5,7 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 
-entity test_filter_generic_m is
+entity test_filter_generic is
     PORT (
      		valid0 : out boolean;
      		valid1 : out boolean;
@@ -16,7 +16,7 @@ entity test_filter_generic_m is
      		valid6 : out boolean);
 end;
 
-architecture only of test_filter_generic_m is
+architecture only of test_filter_generic is
 
 signal out0 : signed (15 downto 0);
 signal out1 : signed (15 downto 0);
@@ -33,6 +33,20 @@ signal out3m : signed (15 downto 0);
 signal out4m : signed (15 downto 0);
 signal out5m : signed (15 downto 0);
 signal out6m : signed (15 downto 0);
+
+component filehandler is
+  generic(
+    stim_file: string :="signals\stim_delta.dat";
+    log_file: string := "signals\filter0.dat"
+    );
+  port(
+ 	  sink : in signed (15 downto 0);
+	  source : out signed (15 downto 0);
+	  clk : in bit;
+	  RST  : in std_logic;
+    EOG  : out std_logic
+	  );
+end component;
 
 COMPONENT filter_generic
   generic(
@@ -63,6 +77,7 @@ COMPONENT filter_generic_m
 END COMPONENT ;
 
 SIGNAL clk : bit := '0';
+SIGNAL rst : std_logic := '0';
 SIGNAL sin : signed (15 downto 0) := "0000000000000000";
 
 begin
@@ -74,6 +89,90 @@ begin
   valid4 <= (out4 - out4m) = to_signed(0,16);
   valid5 <= (out5 - out5m) = to_signed(0,16);
   valid6 <= (out6 - out6m) = to_signed(0,16);
+  
+  fh0 : filehandler
+GENERIC MAP (
+    stim_file => "signals\stim_delta.dat",
+    log_file => "signals\filter0_nogain.dat")
+PORT MAP (
+  sink => out0m,
+	source => open,
+	clk => clk,
+	RST => rst,
+  EOG => open
+	);
+	
+fh1 : filehandler
+GENERIC MAP (
+    stim_file => "signals\stim_delta.dat",
+    log_file => "signals\filter1_nogain.dat")
+PORT MAP (
+  sink => out1m,
+	source => open,
+	clk => clk,
+	RST => rst,
+  EOG => open
+	);
+  
+fh2 : filehandler
+GENERIC MAP (
+    stim_file => "signals\stim_delta.dat",
+    log_file => "signals\filter2_nogain.dat")
+PORT MAP (
+  sink => out2m,
+	source => open,
+	clk => clk,
+	RST => rst,
+  EOG => open
+	);
+	
+fh3 : filehandler
+GENERIC MAP (
+    stim_file => "signals\stim_delta.dat",
+    log_file => "signals\filter3_nogain.dat")
+PORT MAP (
+  sink => out3m,
+	source => open,
+	clk => clk,
+	RST => rst,
+  EOG => open
+	);
+	
+fh4 : filehandler
+GENERIC MAP (
+    stim_file => "signals\stim_delta.dat",
+    log_file => "signals\filter4_nogain.dat")
+PORT MAP (
+  sink => out4m,
+	source => open,
+	clk => clk,
+	RST => rst,
+  EOG => open
+	);
+	
+fh5 : filehandler
+GENERIC MAP (
+    stim_file => "signals\stim_delta.dat",
+    log_file => "signals\filter5_nogain.dat")
+PORT MAP (
+  sink => out5m,
+	source => open,
+	clk => clk,
+	RST => rst,
+  EOG => open
+	);
+	
+fh6 : filehandler
+GENERIC MAP (
+    stim_file => "signals\stim_delta.dat",
+    log_file => "signals\filter6_nogain.dat")
+PORT MAP (
+  sink => out6m,
+	source => open,
+	clk => clk,
+	RST => rst,
+  EOG => open
+	);
 
 filter0 : filter_generic
   GENERIC MAP (
@@ -233,6 +332,13 @@ stimulus : PROCESS
    wait for 50 ns; sin  <= "0000000000000000";
    wait;
 end PROCESS stimulus;
+
+reset : PROCESS
+   begin
+   RST  <= '1';
+   wait for 1 ns; RST  <= '0';
+   wait;
+end PROCESS reset;
 
 end only;
 
