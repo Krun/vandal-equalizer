@@ -6,7 +6,7 @@ filt4 = RdVHDL('..\signals\filter4.dat', 6, 10);
 filt5 = RdVHDL('..\signals\filter5.dat', 6, 10);
 filt6 = RdVHDL('..\signals\filter6.dat', 6, 10);
 
-h = [filt0 filt1 filt2 filt3 filt4 filt5 filt6];
+filt = [filt0 filt1 filt2 filt3 filt4 filt5 filt6];
 
 
 A = [1024 -2029 1006;
@@ -43,15 +43,15 @@ for i = 1:7,
     Ai = A(i,:);
     Gi = G(i);
     yi = filter(Bi, Ai, delta);
-    yi = yi * Gi;
+    %yi = yi * Gi;
     diff = abs(yi-hi);
     subplot(2,2,1); stem(hi);
-    tit = sprintf('Respuesta en simulacion incluyendo ganancia (filtro %i)',i-1);
+    tit = sprintf('Respuesta obtenida en la simulacion (filtro %i)',i-1);
     title(tit)
     xlabel('n')
     ylabel('h[n]')
     subplot(2,2,2); stem(yi);
-    tit = sprintf('Respuesta ideal en MATLAB (filtro %i)',i-1);
+    tit = sprintf('Respuesta obtenida en MATLAB (filtro %i)',i-1);
     title(tit)
     xlabel('n')
     ylabel('h[n]')

@@ -65,8 +65,8 @@ begin
 fh : filehandler
 
   GENERIC MAP (
-    stim_file =>"stimulus.dat",
-    log_file => "output.dat")
+    stim_file =>"signals\stimulus.dat",
+    log_file => "signals\adjust.dat")
   PORT MAP (
     sink => sink,
     source => source,
@@ -77,7 +77,7 @@ fh : filehandler
 fh2 : filehandler
 
   GENERIC MAP (
-    log_file => "output2.dat")
+    log_file => "signals\adjust2.dat")
   PORT MAP (
     sink => sink2,
     source => open,

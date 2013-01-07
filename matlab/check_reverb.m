@@ -1,6 +1,6 @@
-short = RdVHDL('..\short_stim.dat', 6, 10);
-filt = RdVHDL('..\output.dat', 6, 10);
-filt2 = RdVHDL('..\output2.dat', 6, 10);
+short = RdVHDL('..\signals\short_stim.dat', 6, 10);
+filt = RdVHDL('..\signals\reverb.dat', 6, 10);
+filt2 = RdVHDL('..\signals\reverb2.dat', 6, 10);
 
 G = [8, 17, 34, 66, 125, 250, 500, 1000, 2000];
 G = G./1024;

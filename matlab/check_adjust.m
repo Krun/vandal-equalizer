@@ -1,6 +1,6 @@
-short = RdVHDL('..\stimulus.dat', 6, 10);
-filt = RdVHDL('..\output.dat', 6, 10);
-filt2 = RdVHDL('..\output2.dat', 6, 10);
+short = RdVHDL('..\signals\stimulus.dat', 6, 10);
+filt = RdVHDL('..\signals\adjust.dat', 6, 10);
+filt2 = RdVHDL('..\signals\adjust2.dat', 6, 10);
 
 G = [8, 17, 34, 66, 125, 250, 500, 1000, 2000];
 G = G./1024;
@@ -20,24 +20,14 @@ B = [1024 0 -1024;
     1024 0 -1024;
     1024 0 -1024;];
 
-filtered = zeros(size(short));
-for i = 1:7,
-    Bi = B(i,:);
-    Ai = A(i,:);
-    Gi = G(i);
-    yi = filter(Bi, Ai, short);
-    yi = yi * Gi;
-    filtered = filtered + yi;
-end
-
-m = length(filt);
+m = length(filt)-4;
 
 subplot(3,1,1);
 plot(short(1:m));
 title('Señal de entrada');
 subplot(3,1,2);
-plot(filt);
+plot(filt(1:m));
 title('Salida sin variar atenuación');
 subplot(3,1,3);
-plot(filt2);
+plot(filt2(1:m));
 title('Salida variando atenuación');

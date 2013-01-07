@@ -11,12 +11,8 @@ architecture only of test_system_reverb is
 signal CLK : bit := '0';
 signal RST : std_logic := '0';
 signal rev : bit := '0';
-signal f_sel : unsigned (2 downto 0);
-signal g_sel : unsigned (3 downto 0);
-signal g_en : bit;
 signal sink : signed(15 downto 0);
 signal sink2 : signed(15 downto 0);
-signal tsink : signed (15 downto 0);
 signal source : signed(15 downto 0) := "0000000000000000";
 signal equal : boolean;
 
@@ -32,31 +28,6 @@ component filehandler is
 	  RST  : in  std_logic;
     EOG  : out std_logic
 	  );
-end component;
-
-component equalizer_system is
-generic (
-  reverb_size : integer := 256;
-  reverb_gain : integer := 100
-  );
-port (
-	sin : in signed (15 downto 0);
-	sout : out signed (15 downto 0);
-	clk : in bit;
-	f_sel : in unsigned (2 downto 0);
-	g_sel : in unsigned (3 downto 0);
-	g_en : in bit;
-	
-	rev_en : in bit;
-	
-	level0 : out unsigned (7 downto 0);
-	level1 : out unsigned (7 downto 0);
-	level2 : out unsigned (7 downto 0);
-	level3 : out unsigned (7 downto 0);
-	level4 : out unsigned (7 downto 0);
-	level5 : out unsigned (7 downto 0);
-	level6 : out unsigned (7 downto 0)
-	);
 end component;
 
 component equalizer_system_m is
@@ -90,8 +61,8 @@ begin
 fh : filehandler
 
   GENERIC MAP (
-    stim_file =>"short_stim.dat",
-    log_file => "output.dat")
+    stim_file =>"signals\short_stim.dat",
+    log_file => "signals\reverb.dat")
   PORT MAP (
     sink => sink,
     source => source,
@@ -102,7 +73,7 @@ fh : filehandler
 fh2 : filehandler
 
   GENERIC MAP (
-    log_file => "output2.dat")
+    log_file => "signals\reverb2.dat")
   PORT MAP (
     sink => sink2,
     source => open,
@@ -114,7 +85,7 @@ fh2 : filehandler
 esm2 : equalizer_system_m
   GENERIC MAP(
     reverb_size => 32,
-    reverb_gain => 200
+    reverb_gain => 300
   )
 
   PORT MAP (
@@ -139,7 +110,7 @@ esm2 : equalizer_system_m
 esm : equalizer_system_m
   GENERIC MAP(
     reverb_size => 32,
-    reverb_gain => 200
+    reverb_gain => 300
   )
 
   PORT MAP (
