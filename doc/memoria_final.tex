@@ -9,6 +9,10 @@
 \usepackage{minted}
 \usepackage[a4paper]{geometry}
 
+\renewcommand{\appendixname}{Apéndices}
+\renewcommand{\appendixtocname}{Apéndices}
+\renewcommand{\appendixpagename}{Apéndices}
+
 \newminted{vhdl}{mathescape, linenos, numbersep=15pt, frame=lines,framesep=2mm}
                
 \newminted{matlab}{mathescape, linenos, numbersep=15pt, frame=lines,framesep=2mm}               
@@ -284,22 +288,115 @@ De forma análoga a lo que sucede con el multiplicador en array, realizar un mul
 El diseño elegido para estos bloques puede verse en la figura~\ref{fig:carry_save_block}
 
 \begin{figure}[hbt]
-\includegraphics[width=\textwidth]{img/carry_save_block.png} 
+\includegraphics[width=\textwidth]{img/carry_save_block.pdf} 
 \caption{Bloque del multiplicador carry save} \label{fig:carry_save_block}
 \end{figure}
 
 
+\section{Pruebas y resultados}
+En esta sección se van a describir los procedimientos utilizados para evaluar el funcionamiento de los sistemas implementados
+\subsection{Comprobación del funcionamiento de los filtros}\label{sec:pruebafiltros}
+Para comprobar el correcto funcionamiento de los filtros, se ha comparado la respuesta al impulso obtenida en la simulación del sistema VHDL con la respuesta al impulso teórica que debería tener un filtro IIR con los coeficientes indicados en las especificaciones.
+
+Es importante tener en cuenta que al aplicar la atenuación a la salida de los filtros (para que todas las bandas presenten una ganancia de 0dB) se aumenta considerablemente el ruido de cuantificación de la señal de salida. Para evitar este efecto a la hora de comprobar la correcta realización del filtro, se van a comparar las respuestas al impulso sin aplicar la atenuación en primer lugar, y posteriormente aplicándola.
+
+Las gráficas detalladas con los resultados de esta prueba se encuentran en el apéndice~\ref{sec:resultadosfiltros}.
+
+Observando los resultados, se puede ver que las respuestas al impulso que se observa sin atenuar la salida de los filtros corresponde bastante bien con la respuesta teórica esperada (calculada con MATLAB). No obstante, si observamos las respuestas al impulso con la salida atenuada, vemos que el ruido de cuantificación es considerablemente alto, especialmente en los filtros de frecuencias bajas.
+
+Debido a que esta atenuación se aplica a la entrada (para evitar saturación en puntos intermedios) este ruido nos afecta también a los valores de realimentación dentro de la estructura del filtro, lo que nos modifica la forma de la respuesta al impulso en los filtros 0 y 1.
+
+El diseño de los filtros es correcto, como se observa en las respuestas al impulso sin atenuar. El funcionamiento pobre de los filtros 0 y 1 se debe por tanto únicamente al error de cuantificación, y por tanto para mejorar el funcionamiento en este aspecto debería trabajarse con un mayor tamaño de palabra.
+
+
+
+\subsection{Prueba de la función de reverb}
+\subsection{Prueba de ajuste de ganancia}
+\subsection{Prueba de mejoras}
+
+\appendix
+\clearpage
+\addappheadtotoc
+\appendixpage
+\section{Gráficas de evaluación de filtros}\label{sec:resultadosfiltros}
+Estas gráficas corresponden a los resultados de los procedimientos descritos en la sección~\ref{sec:pruebafiltros}
+\subsection{Sin aplicar atenuación}
+\begin{figure}[hbt]
+\includegraphics[width=\textwidth]{img/respfiltro0.pdf} 
+\caption{Comprobación del filtro 0} \label{fig:filter0}
+\end{figure}
+
+\begin{figure}[hbt]
+\includegraphics[width=\textwidth]{img/respfiltro1.pdf} 
+\caption{Comprobación del filtro 1} \label{fig:filter1}
+\end{figure}
+
+\begin{figure}[hbt]
+\includegraphics[width=\textwidth]{img/respfiltro2.pdf} 
+\caption{Comprobación del filtro 2} \label{fig:filter2}
+\end{figure}
+
+\begin{figure}[hbt]
+\includegraphics[width=\textwidth]{img/respfiltro3.pdf} 
+\caption{Comprobación del filtro 3} \label{fig:filter3}
+\end{figure}
+
+\begin{figure}[hbt]
+\includegraphics[width=\textwidth]{img/respfiltro4.pdf} 
+\caption{Comprobación del filtro 4} \label{fig:filter4}
+\end{figure}
+
+\begin{figure}[hbt]
+\includegraphics[width=\textwidth]{img/respfiltro5.pdf} 
+\caption{Comprobación del filtro 5} \label{fig:filter5}
+\end{figure}
+
+\begin{figure}[hbt]
+\includegraphics[width=\textwidth]{img/respfiltro6.pdf} 
+\caption{Comprobación del filtro 6} \label{fig:filter6}
+\end{figure}
+
+\clearpage
+\subsection{Aplicando atenuación}
+\begin{figure}[hbt]
+\includegraphics[width=10cm]{img/respfiltro0_gain.pdf} 
+\caption{Comprobación del filtro 0 (con atenuación)} \label{fig:filter0_gain}
+\end{figure}
+
+\begin{figure}[hbt]
+\includegraphics[width=10cm]{img/respfiltro1_gain.pdf} 
+\caption{Comprobación del filtro 1 (con atenuación)} \label{fig:filter1_gain}
+\end{figure}
+
+\begin{figure}[hbt]
+\includegraphics[width=10cm]{img/respfiltro2_gain.pdf} 
+\caption{Comprobación del filtro 2 (con atenuación)} \label{fig:filter2_gain}
+\end{figure}
+
+\begin{figure}[hbt]
+\includegraphics[width=10cm]{img/respfiltro3_gain.pdf} 
+\caption{Comprobación del filtro 3 (con atenuación)} \label{fig:filter3_gain}
+\end{figure}
+
+\begin{figure}[hbt]
+\includegraphics[width=10cm]{img/respfiltro4_gain.pdf} 
+\caption{Comprobación del filtro 4 (con atenuación)} \label{fig:filter4_gain}
+\end{figure}
+
+\begin{figure}[hbt]
+\includegraphics[width=10cm]{img/respfiltro5_gain.pdf} 
+\caption{Comprobación del filtro 5 (con atenuación)} \label{fig:filter5_gain}
+\end{figure}
+
+\begin{figure}[hbt]
+\begin{center}
+\includegraphics[width=10cm]{img/respfiltro6_gain.pdf} 
+\caption{Comprobación del filtro 6 (con atenuación)} \label{fig:filter6_gain}
+\end{center}
+\end{figure}
+
+\clearpage
+
+
+
 \end{document}
-
-
-
-
-
-
-
-
-
-
-
-
-
