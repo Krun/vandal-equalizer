@@ -57,9 +57,13 @@
 %\maketitle
 
 \newpage
-\tableofcontents % indice de contenidos
+\pagenumbering{roman}
 \addcontentsline{toc}{section}{Contenidos} % para que aparezca en el indice de 
+\tableofcontents % indice de contenidos
 
+\clearpage
+\setcounter{page}{1}
+\pagenumbering{arabic}
 \section{Introducción}
 En esta memoria vamos a tratar un proyecto realizado para la asignatura \emph{Diseño de Circuitos y Sistemas Electrónicos} impartida en la ETSI de Telecomunicación de la Universidad Politécnica de Madrid.
 
