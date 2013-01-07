@@ -53,7 +53,7 @@
 % Set line spacing to 1.5
 %\onehalfspacing
 
-\include{report1_titlepage}
+\include{memoriatitlepage}
 %\maketitle
 
 \newpage
@@ -247,12 +247,19 @@ En la figura~\ref{fig:ripple_carry_adder} se muestra un esquema simplificado (4 
 \caption{Sumador Ripple Carry de 4 bits} \label{fig:ripple_carry_adder}
 \end{figure}
 
+\clearpage
+
 \subsection{Sumador Carry Bypass}
 El sumador \emph{Carry Bypass} (o \emph{Carry Skip}) permite reducir el tiempo de retardo del camino crítico sensiblemente. En la figura~\ref{fig:carry_bypass_adder} puede verse un esquema de este tipo de sumador.
 
 Para la implementación de este tipo de sumadores, se divide la operación en varios bloques. En el esquema de la figura~\ref{fig:carry_bypass_adder} estos bloques son de 4 bits, aunque se puede variar el tamaño de los mismos para optimizar aún más el retardo de este sumador.
 
 En la figura~\ref{fig:carry_skip_block} puede verse un detalle de los bloques carry bypass.
+
+\begin{figure}[hbt]
+\includegraphics[width=\textwidth]{img/carrybypass.png} 
+\caption{Sumador carry bypass} \label{fig:carry_bypass_adder}
+\end{figure}
 
 \begin{figure}[hbt]
 \includegraphics[width=\textwidth]{img/carryskipblock.png} 
@@ -330,6 +337,13 @@ Para comprobar el funcionamiento de la función de ajuste de ganancia se ha obse
 
 Observar de forma gráfica la evaluación temporal de la señal es la forma más adecuada de comprobar este funcionamiento. Las gráficas que muestran este resultado pueden verse en el apéndice~\ref{sec:resultadosajuste}.
 
+\subsection{Prueba del vúmetro}
+El vúmetro es un subsistema enormemente sencillo. Debido a ello, para el comprobamiento de su funcionamiento es suficiente con una comprobación cualitativa de las señales de nivel generadas.
+
+Para comprobar el funcionamiento, se han generado impulsos de diferente amplitud y comprobado la respuesta del vúmetro a ellos. Se ha comprobado tanto el mantenimiento temporal de los picos como la adecuación de la señal de nivel ante señales tanto positivas como negativas.
+
+Debido a la sencillez del procedimiento, una simple observación en la simulación es suficiente y no es necesaria la generación de gráficas.
+
 \subsection{Prueba de mejoras}
 Para comprobar el funcionamiento de los sumadores y multiplicadores se han realizado varias operaciones y se ha comparado el resultado que ofrecían nuestros sumadores y multiplicadores con el que resultaría de utilizar las funciones + y * de VHDL. Se pretende así comprobar que el uso de nuestros bloques operacionales corresponde exactamente al uso de las funciones VHDL. Para ello se ha elegido un conjunto de señales de prueba a sumar, teniendo cuidado en comprobar las operaciones con señales negativas.
 
@@ -343,6 +357,17 @@ Como es de esperar, al utilizar nuestros sumadores y multiplicadores implementad
 Este efecto se elimina del resto del sistema mediante el uso de una señal de reloj. Utilizando un periodo de reloj mayor que el necesario para la generación de las sumas y multiplicaciones evitamos estas oscilaciones. En la simulación se ha establecido un periodo de reloj de 100ns, suficientemente alto ya que el retardo de los full adders es de 1 ns.
 
 En las gráficas incluidas en el apéndice~\ref{sec:resultadosmejoras} puede además verse la diferencia en el retardo de las diferentes configuraciones. Así, observamos como el sumador ripple carry en muchas ocasiones tarda sensiblemente más en estabilizar su resultado que el sumador carry bypass. También se observa esta diferencia en los multiplicadores. El multiplicador carry save tiene un retardo sensiblemente mejor que el del multiplicador en array. Esto corresponde con lo estudiado en teoría en clase.
+
+\section{Problemas encontrados y comentarios finales}
+La realización de este proyecto ha resultado enormemente didáctica para el aprendizaje tanto del lenguaje de programación VHDL como del uso de herramientas de simulación (Modelsim). Además, en su realización no sólo se han aprendido conceptos relativos a estas propias herramientas sino que también se ha podido comprobar de primera mano el funcionamiento de algunos de los sistemas estudiados en clase de forma teórica. Esto ha supuesto una experiencia de aprendizaje muy gratificante en ambos sentidos, que ha permitido una comprensión de los módulos estudiados mucho más profunda que mediante su estudio teórico.
+
+En la realización de este proyecto, se han encontrado ciertas dificultades que han podido ser superadas con cierto esfuerzo. En primer lugar, las peculiaridades del lenguaje VHDL hacen que comenzar a trabajar sea más costoso de lo habitual. Más allá de las características de los sistemas con los que se han trabajado, muchas veces el punto de dificultad ha resultado venir dado por el propio lenguaje. No obstante, debido a la enorme cantidad de información disponible en internet, estos obstáculos han podido ser superados sin ningún problema.
+
+En segundo lugar, se han encontrado dificultades a la hora de escoger un ancho de bits adecuado para las señales que se manejan en el sistema. Tanto es así, que aunque se ha conseguido definir un ancho de palabra que evita problemas como desbordamientos, no se ha conseguido optimizar la elección de forma que se minimice el error de cuantificación. No obstante, puesto que la calidad de sonido no es el objetivo de esta práctica, se ha considerado que el error de cuantificación presente en el sistema es asumible. Aumentar el ancho de palabra a 32 bits sería una solución aceptable para minimizar este error, pero aumentaría considerablemente la complejidad de los sumadores y multiplicadores desarrollados como mejoras. Por tanto, a pesar de conllevar un error de cuantificación considerable, se ha decidido mantener la elección de 6 bits enteros y 10 bits fraccionarios.
+
+En los demás aspectos, se ha podido diseñar e implementar el resto de subsistemas sin dificultades remarcables.
+
+En conclusión, se ha desarrollado un sistema funcional y altamente didáctico.
 
 \appendix
 \clearpage
@@ -484,6 +509,120 @@ En las señales valid\_ar y valid\_cs se observa la diferencia entre los tiempos
 \caption{Comprobación de multiplicadores} \label{fig:multipliertest}
 \end{center}
 \end{figure}
+\clearpage
+
+\section{Relación de ficheros VHDL}
+
+\subsection*{Sistema global}
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+\headcell{Archivo VHD} & \headcell{Descripción} \\
+\hline 
+equalizer\_system.vhd & Sistema global integrado \\ 
+\hline 
+equalizer\_system\_m.vhd & Sistema global integrado con mejoras \\ 
+\hline 
+\end{tabular}
+\end{center}
+
+\subsection*{Subsistemas}
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+\headcell{Archivo VHD} & \headcell{Descripción} \\
+\hline
+delay.vhd  & Módulo de retardo \\ 
+\hline
+filter\_bench\_m.vhd  & Banco de filtros (con mejoras) \\ 
+\hline
+filter\_bench.vhd  & Banco de filtros (sin mejoras) \\ 
+\hline
+filter\_generic\_m.vhd  & Filtro genérico (con mejoras) \\ 
+\hline
+filter\_generic.vhd  & Filtro genérico (sin mejoras) \\ 
+\hline
+reverb\_m.vhd  & Subsistema de reverb (con mejoras) \\ 
+\hline
+reverb.vhd  & Subsistema de reverb (sin mejoras) \\ 
+\hline
+vumetro\_it.vhd  & Vúmetro individual \\ 
+\hline
+vumetro.vhd & Vúmetro de 7 señales \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection*{Mejoras}
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+\headcell{Archivo VHD} & \headcell{Descripción} \\
+\hline 
+adder\_16b.vhd  & Sumador de 16 bits (incluye las dos arquitecturas) \\ 
+\hline
+multiplier\_16x16b.vhd  & Multiplicador de 16 bits (incluye las dos arquitecturas) \\ 
+\hline
+am\_block.vhd  & Bloque del multiplicador en array \\ 
+\hline
+carry\_bypass\_block.vhd  & Bloque de sumador carry bypass \\ 
+\hline
+csm\_block.vhd  & Bloque de multiplicador carry save \\ 
+\hline
+csm\_lastblock.vhd  & Último bloque de multiplicador carry save \\ 
+\hline
+FA\_m.vhd  & Full adder modificado (señales P y G) \\ 
+\hline
+FA.vhd  & Full adder \\ 
+\hline
+\end{tabular}
+\end{center}
+
+\subsection*{Testbench}
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+\headcell{Archivo VHD} & \headcell{Descripción} \\
+\hline
+tadder\_16b.vhd  & Pruebas del sumador (ambas arquitecturas) \\ 
+\hline
+tdelay.vhd  & Pruebas del retardador \\ 
+\hline
+tequalizer\_system.vhd  & Pruebas del sistema global (con y sin mejoras) \\ 
+\hline
+tfilter\_bench.vhd  & Pruebas del banco de filtros (con y sin mejoras) \\ 
+\hline
+tfilter\_generic.vhd  & Pruebas del filtro genérico (con y sin mejoras) \\  
+\hline
+tfilter\_impz.vhd  & Testbench para obtener respuestas al impulso a fichero \\ 
+\hline
+tmultiplier\_16x16b.vhd  & Pruebas del multiplicador (ambas arquitecturas) \\ 
+\hline
+treverb\_m.vhd  & Pruebas del módulo de reverb \\ 
+\hline
+tsystem\_adjust.vhd  & Pruebas de la funcionalidad de ajustar ganancia \\ 
+\hline
+tsystem\_reverb.vhd  & Pruebas de la funcionalidad de reverb (a nivel global) \\ 
+\hline
+tvumetro\_it.vhd  & Pruebas del vúmetro individual \\ 
+\hline
+\end{tabular}
+\end{center}
+
+\subsection*{Módulos auxiliares}
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+\headcell{Archivo VHD} & \headcell{Descripción} \\
+\hline 
+filehandler.vhd  & Módulo para leer y escribir señales en ficheros \\ 
+\hline
+txt\_util.vhd  & Funciones útiles para tratar con señales de ficheros \\ 
+\hline
+\end{tabular}
+\end{center}
+
+
 
 
 \end{document}
