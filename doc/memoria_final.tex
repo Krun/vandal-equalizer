@@ -169,7 +169,7 @@ A la hora de implementar estos filtros digitales, tenemos que tener en cuenta un
 \subsection{Ruido de cuantificación}
 El haber elegido un ancho de palabra de 16 bits con 6 bits enteros y 10 fraccionarios nos impone una limitación considerable en cuanto a la resolución de nuestro sistema a la hora de representar señales. Sobretodo en señales de amplitud baja, tendremos un ruido de cuantificación que puede llegar a influir en el correcto funcionamiento de nuestro sistema.
 
-Para intentar minimizar el ruido de cuantificación, se puede intentar ajustar más el numero de bits enteros, ya que las señales con las que trabajaremos estan normalizadas a 1, y a priori debería bastarnos con un bit entero y 15 fraccionarios. Este enfoque se ha intentado realizar sin éxito en la implementación, ya que aunque las señales de entrada esten normalizadas a 1, en puntos intermedios de los filtros algunas señales pueden tomar valores más altos, produciendo desbordamiento. Por ello, se ha decidido tomar una postura más conservadora y mantener la representación con 10 bits fraccionarios, que aunque no es óptima en sentido del ruido de cuantificación, nos ofrece mayor seguridad frente a desbordamiento.
+Para intentar minimizar el ruido de cuantificación, se puede intentar ajustar más el numero de bits enteros, ya que las señales con las que trabajaremos están normalizadas a 1, y a priori debería bastarnos con un bit entero y 15 fraccionarios. Este enfoque se ha intentado realizar sin éxito en la implementación, ya que aunque las señales de entrada estén normalizadas a 1, en puntos intermedios de los filtros algunas señales pueden tomar valores más altos, produciendo desbordamiento. Por ello, se ha decidido tomar una postura más conservadora y mantener la representación con 10 bits fraccionarios, que aunque no es óptima en sentido del ruido de cuantificación, nos ofrece mayor seguridad frente a desbordamiento.
 
 Otra forma de abordar este problema sería utilizar palabras de 32 bits en lugar de 16. Esto nos ofrecería una resolución enormemente mayor, mejorando sensiblemente la calidad del sistema. No obstante, trabajar con palabras de 32 bits supone una complejidad mucho mayor a la hora de implementar los sumadores y multiplicadores vistos en clase. Debido a que el objetivo del proyecto es mayormente didáctico y no obtener una calidad de audio excepcional, se ha decidido mantener las palabras de 16 bits y asumir los efectos del ruido de cuantificación.
 
@@ -187,7 +187,7 @@ Para evitar desbordamiento en la señal al aplicar la ganancia, trabajaremos con
 
 \clearpage
 \section{Diseño de módulo de reverberación}
-El subsistema de reverberación consiste en un módulo que ofrece a la salida la señal que obtiene a la entrada con un retraso de N posiciones y aplicandole una atenuación determinada.
+El subsistema de reverberación consiste en un módulo que ofrece a la salida la señal que obtiene a la entrada con un retraso de N posiciones y aplicándole una atenuación determinada.
 
 Para la implementación de este módulo se ha utilizado como base una cola FIFO, en la cual se va introduciendo la señal que posteriormente se va obteniendo por la salida tras N ciclos de reloj. Para ello es importante inicializar la cola para que esté llena de palabras a cero, ya que si no la primera muestra de la señal de entrada ocuparía la primera posición y sería la que se ofrecería a la salida en el siguiente ciclo de reloj.
 
@@ -198,7 +198,7 @@ Se ha implementado para ello el subsistema \emph{delay}, que consiste en una mem
 Posteriormente, la señal se atenúa mediante un valor de ganancia también configurable mediante genéricos, y se realimenta a la entrada del banco de filtros.
 
 \section{Diseño de vúmetro}
-El vúmetro ofrece información sobre el nivel de señal disponible en cada una de las bandas de señal. Para abordar la implementación de este módulo, se ha implementado un subsistema vúmetro con úna única entrada que ofrece el nivel de la señal que tenga a la entrada. Estos vúmetros individuales se agrupan en un módulo vúmetro de 7 entradas, que conectaremos a la salida de cada uno de los filtros del banco de filtros.
+El vúmetro ofrece información sobre el nivel de señal disponible en cada una de las bandas de señal. Para abordar la implementación de este módulo, se ha implementado un subsistema vúmetro con una única entrada que ofrece el nivel de la señal que tenga a la entrada. Estos vúmetros individuales se agrupan en un módulo vúmetro de 7 entradas, que conectaremos a la salida de cada uno de los filtros del banco de filtros.
 
 Cada uno de los vúmetros individuales generan a la salida una señal de 8 bits, simulando los leds que tradicionalmente se utilizan en estos sistemas. El número de bits que se pongan a 1 en la señal (leds que se iluminan) indicará el nivel de la señal en esa banda.
 
@@ -225,7 +225,7 @@ Esto nos permite mantener de forma sencilla los niveles un mínimo de tiempo en 
 \section{Mejoras}
 Para la aplicación de los conocimientos obtenidos en la asignatura \emph{Diseño de Circuitos y Sistemas Electrónicos}, se ha propuesto la realización de varias modificaciones que se corresponden con lo estudiado en la parte digital de la asignatura.
 
-En concreto, se ha propuesto la implementación de sumadores y multiplicadores binarios, correspondiendose con las configuraciones estudiadas en clase. Estas implementaciones se han de realizar a bajo nivel, mediante la conexión y configuración de \emph{Full Adders}, ilustrando además los efectos de retardo en cada una de las distintas configuraciones.
+En concreto, se ha propuesto la implementación de sumadores y multiplicadores binarios, correspondiéndose con las configuraciones estudiadas en clase. Estas implementaciones se han de realizar a bajo nivel, mediante la conexión y configuración de \emph{Full Adders}, ilustrando además los efectos de retardo en cada una de las distintas configuraciones.
 
 En concreto, se han implementado las siguientes configuraciones:
 \begin{itemize}
@@ -273,7 +273,7 @@ El multiplicador en array corresponde a la implementación más directa de una m
 
 En la figura~\ref{fig:array_multiplier} se puede ver un esquema general de un multiplicador en array. Para un multiplicador de 16 x 16 bits como el que necesitamos en nuestro sistema, tendríamos que utilizar un total de 256 full adders. Debido a que esta cantidad es inmanejable a la hora de realizar conexiones de señales en VHDL, se ha optado por dividir la estructura del multiplicador en filas de 16 full adders, de forma que solo tengamos que diseñar una fila y después tratar con 16 filas. El diseño de estas filas (\emph{bloques de multiplicador en array}) puede verse en la figura~\ref{fig:array_multiplier_block}. Es importante destacar que esta agrupación en filas no conlleva ninguna modificación en el funcionamiento del multiplicador, y que equivale exactamente a haber conectado entre si los 256 full adders en un único módulo.
 
-Para realizar multiplicaciones con signo, se calcula previamente el signo del resultado mediante un XOR de los MSB de los factores. Posteriormente se realiza la multiplicación del valor absoluto de los factores, invirtiendose posteriormente el signo del resultado si se espera un resultado negativo.
+Para realizar multiplicaciones con signo, se calcula previamente el signo del resultado mediante un XOR de los MSB de los factores. Posteriormente se realiza la multiplicación del valor absoluto de los factores, invirtiéndose posteriormente el signo del resultado si se espera un resultado negativo.
 
 \begin{figure}[hbt]
 \includegraphics[width=\textwidth]{img/array_multiplier.png} 
@@ -300,7 +300,7 @@ De forma análoga a lo que sucede con el multiplicador en array, realizar un mul
 
 El diseño elegido para estos bloques puede verse en la figura~\ref{fig:carry_save_block}
 
-Para realizar multiplicaciones con signo, se calcula previamente el signo del resultado mediante un XOR de los MSB de los factores. Posteriormente se realiza la multiplicación del valor absoluto de los factores, invirtiendose posteriormente el signo del resultado si se espera un resultado negativo.
+Para realizar multiplicaciones con signo, se calcula previamente el signo del resultado mediante un XOR de los MSB de los factores. Posteriormente se realiza la multiplicación del valor absoluto de los factores, invirtiéndose posteriormente el signo del resultado si se espera un resultado negativo.
 
 \begin{figure}[hbt]
 \includegraphics[width=\textwidth]{img/carry_save_block.pdf} 
@@ -333,12 +333,12 @@ Las gráficas que muestran este resultado pueden verse en el apéndice~\ref{sec:
 
 
 \subsection{Prueba de ajuste de ganancia}
-Para comprobar el funcionamiento de la función de ajuste de ganancia se ha observado la evolución de la señal de salida mientras se va modificando la ganancia. Para ilustrar este funcionamiento, se ha tomado una señal sinusoidal centrada en la frecuencia del filtro 3, y se ha ido aumentando la atenuación progresivamente en las bandas 2, 3 y 4. En la salida puede verse claramente como la señal va atenuandose a medida que vamos variando la ganancia.
+Para comprobar el funcionamiento de la función de ajuste de ganancia se ha observado la evolución de la señal de salida mientras se va modificando la ganancia. Para ilustrar este funcionamiento, se ha tomado una señal sinusoidal centrada en la frecuencia del filtro 3, y se ha ido aumentando la atenuación progresivamente en las bandas 2, 3 y 4. En la salida puede verse claramente como la señal va atenuándose a medida que vamos variando la ganancia.
 
 Observar de forma gráfica la evaluación temporal de la señal es la forma más adecuada de comprobar este funcionamiento. Las gráficas que muestran este resultado pueden verse en el apéndice~\ref{sec:resultadosajuste}.
 
 \subsection{Prueba del vúmetro}
-El vúmetro es un subsistema enormemente sencillo. Debido a ello, para el comprobamiento de su funcionamiento es suficiente con una comprobación cualitativa de las señales de nivel generadas.
+El vúmetro es un subsistema enormemente sencillo. Debido a ello, para la comprobación de su funcionamiento es suficiente con una comprobación cualitativa de las señales de nivel generadas.
 
 Para comprobar el funcionamiento, se han generado impulsos de diferente amplitud y comprobado la respuesta del vúmetro a ellos. Se ha comprobado tanto el mantenimiento temporal de los picos como la adecuación de la señal de nivel ante señales tanto positivas como negativas.
 
@@ -365,7 +365,7 @@ En la realización de este proyecto, se han encontrado ciertas dificultades que 
 
 En segundo lugar, se han encontrado dificultades a la hora de escoger un ancho de bits adecuado para las señales que se manejan en el sistema. Tanto es así, que aunque se ha conseguido definir un ancho de palabra que evita problemas como desbordamientos, no se ha conseguido optimizar la elección de forma que se minimice el error de cuantificación. No obstante, puesto que la calidad de sonido no es el objetivo de esta práctica, se ha considerado que el error de cuantificación presente en el sistema es asumible. Aumentar el ancho de palabra a 32 bits sería una solución aceptable para minimizar este error, pero aumentaría considerablemente la complejidad de los sumadores y multiplicadores desarrollados como mejoras. Por tanto, a pesar de conllevar un error de cuantificación considerable, se ha decidido mantener la elección de 6 bits enteros y 10 bits fraccionarios.
 
-En los demás aspectos, se ha podido diseñar e implementar el resto de subsistemas sin dificultades remarcables.
+En los demás aspectos, se ha podido diseñar e implementar el resto de subsistemas sin dificultades destacables.
 
 En conclusión, se ha desarrollado un sistema funcional y altamente didáctico.
 
