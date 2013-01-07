@@ -517,6 +517,8 @@ En las señales valid\_ar y valid\_cs se observa la diferencia entre los tiempos
 
 \section{Relación de ficheros VHDL}
 
+Las siguientes tablas muestran una lista de los archivos .vhd implementados junto a su descripción. Se han mantenido tanto las versiones con mejoras (sumadores y multiplicadores reales) como sin mejoras, con el fin de poder comparar su funcionamiento o entender mejor su funcionalidad.
+
 \subsection*{Sistema global}
 \begin{center}
 \begin{tabular}{|l|l|}
@@ -626,7 +628,31 @@ txt\_util.vhd  & Funciones útiles para tratar con señales de ficheros \\
 \end{tabular}
 \end{center}
 
+\section{Relación de scripts de Matlab}
+La siguiente tabla muestra una lista de los scripts Matlab utilizados en la comprobación de los resultados.
 
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+\headcell{Archivo .m} & \headcell{Descripción} \\
+\hline 
+check\_adjust.m & Comprobar funcionamiento de ajuste de ganancia \\
+\hline
+check\_reverb.m & Comprobar funcionamiento de reverb \\
+\hline
+compare\_filters.m & Comparar la respuestas al impulso (sin atenuación) \\
+\hline
+compare\_filters\_att.m & Comparar la respuestas al impulso (con atenuación) \\
+\hline
+gen\_signal.m & Generar señales de estímulo \\
+\hline
+\hline
+RdVHDL.m & Función de lectura de archivos VHDL \\
+\hline
+WrVHDL.m & Función de escritura de archivos VHDL \\
+\hline
+\end{tabular}
+\end{center}
 
 
 \end{document}
