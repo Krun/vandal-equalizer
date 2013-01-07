@@ -98,6 +98,7 @@ Por último, se han implementado sumadores y multiplicadores con las estructuras
 \caption{Relación de módulos VHDL} \label{fig:vhdl_schema}
 \end{figure}
 
+\clearpage
 \section{Diseño de banco de filtros}
 El sistema propuesto se trata de un ecualizador de audio, por lo que las señales de entrada que tendremos estarán comprendidas en el rango de frecuencias audibles por el hombre. En concreto, la especificación del sistema propuesto propone señales cuya frecuencia estará comprendida aproximadamente entre los 22 Hz y los 2.8 KHz.
 
@@ -184,6 +185,7 @@ La selección de ganancia para cada banda se realiza mediante 3 entradas adicion
 
 Para evitar desbordamiento en la señal al aplicar la ganancia, trabajaremos con posibles valores de ganancia menores que 1 (atenuaremos la señal). De esta forma, la ganancia numero 0 corresponde a una ganancia de 0dB, y de ahí se irá bajando a medida que aumente el índice de la ganancia seleccionada.
 
+\clearpage
 \section{Diseño de módulo de reverberación}
 El subsistema de reverberación consiste en un módulo que ofrece a la salida la señal que obtiene a la entrada con un retraso de N posiciones y aplicandole una atenuación determinada.
 
@@ -194,6 +196,7 @@ En nuestro sistema, el numero de palabras en la cola será siempre fijo e igual 
 Se ha implementado para ello el subsistema \emph{delay}, que consiste en una memoria de N posiciones (tamaño configurable mediante genéricos) con un puntero señalando a una de esas posiciones. En cada ciclo de reloj, se sacará la señal de la posición indicada por el puntero y se añadirá en su lugar la señal que llegue a la entrada. El valor del puntero se va aumentando de forma cíclica, de forma que la señal que acabamos de introducir no se sacará hasta que el puntero vuelva a apuntar a esa misma posición, es decir, tras N ciclos de reloj.
 
 Posteriormente, la señal se atenúa mediante un valor de ganancia también configurable mediante genéricos, y se realimenta a la entrada del banco de filtros.
+
 \section{Diseño de vúmetro}
 El vúmetro ofrece información sobre el nivel de señal disponible en cada una de las bandas de señal. Para abordar la implementación de este módulo, se ha implementado un subsistema vúmetro con úna única entrada que ofrece el nivel de la señal que tenga a la entrada. Estos vúmetros individuales se agrupan en un módulo vúmetro de 7 entradas, que conectaremos a la salida de cada uno de los filtros del banco de filtros.
 
@@ -257,11 +260,13 @@ En la figura~\ref{fig:carry_skip_block} puede verse un detalle de los bloques ca
 \end{figure}
 
 En nuestro diseño, se ha optado por un tamaño de bloque de 4 bits, lo que resulta en un total de 4 bloques carry bypass para obtener el sumador completo. Para trabajar con las señales P y G que se han explicado en teoría, se ha implementado una versión modificada del full adder que trabaja con las señales P y G en lugar de los sumandos originales.
-
+\clearpage
 \subsection{Multiplicador en array}
 El multiplicador en array corresponde a la implementación más directa de una multiplicación binaria. Para ello, simplemente se generan los productos parciales y se van sumando en distintas filas de sumadores. Esto conlleva un retardo considerablemente alto, que como podremos ver, se puede reducir mediante otras configuraciones de multiplicadores.
 
 En la figura~\ref{fig:array_multiplier} se puede ver un esquema general de un multiplicador en array. Para un multiplicador de 16 x 16 bits como el que necesitamos en nuestro sistema, tendríamos que utilizar un total de 256 full adders. Debido a que esta cantidad es inmanejable a la hora de realizar conexiones de señales en VHDL, se ha optado por dividir la estructura del multiplicador en filas de 16 full adders, de forma que solo tengamos que diseñar una fila y después tratar con 16 filas. El diseño de estas filas (\emph{bloques de multiplicador en array}) puede verse en la figura~\ref{fig:array_multiplier_block}. Es importante destacar que esta agrupación en filas no conlleva ninguna modificación en el funcionamiento del multiplicador, y que equivale exactamente a haber conectado entre si los 256 full adders en un único módulo.
+
+Para realizar multiplicaciones con signo, se calcula previamente el signo del resultado mediante un XOR de los MSB de los factores. Posteriormente se realiza la multiplicación del valor absoluto de los factores, invirtiendose posteriormente el signo del resultado si se espera un resultado negativo.
 
 \begin{figure}[hbt]
 \includegraphics[width=\textwidth]{img/array_multiplier.png} 
@@ -273,6 +278,7 @@ En la figura~\ref{fig:array_multiplier} se puede ver un esquema general de un mu
 \caption{Bloque de multiplicador en array} \label{fig:array_multiplier_block}
 \end{figure}
 
+\clearpage
 \subsection{Multiplicador carry save}
 El multiplicador carry save es una estrucutra de multiplicador modificada que permite reducir el tiempo de retardo en la generación del producto. Para ello, los acarreos de una fila de full adders no son propagados dentro de una misma fila, sino que se propagan a la fila siguiente como un sumando adicional.
 
@@ -287,12 +293,14 @@ De forma análoga a lo que sucede con el multiplicador en array, realizar un mul
 
 El diseño elegido para estos bloques puede verse en la figura~\ref{fig:carry_save_block}
 
+Para realizar multiplicaciones con signo, se calcula previamente el signo del resultado mediante un XOR de los MSB de los factores. Posteriormente se realiza la multiplicación del valor absoluto de los factores, invirtiendose posteriormente el signo del resultado si se espera un resultado negativo.
+
 \begin{figure}[hbt]
 \includegraphics[width=\textwidth]{img/carry_save_block.pdf} 
 \caption{Bloque del multiplicador carry save} \label{fig:carry_save_block}
 \end{figure}
 
-
+\clearpage
 \section{Pruebas y resultados}
 En esta sección se van a describir los procedimientos utilizados para evaluar el funcionamiento de los sistemas implementados
 \subsection{Comprobación del funcionamiento de los filtros}\label{sec:pruebafiltros}
@@ -309,10 +317,32 @@ Debido a que esta atenuación se aplica a la entrada (para evitar saturación en
 El diseño de los filtros es correcto, como se observa en las respuestas al impulso sin atenuar. El funcionamiento pobre de los filtros 0 y 1 se debe por tanto únicamente al error de cuantificación, y por tanto para mejorar el funcionamiento en este aspecto debería trabajarse con un mayor tamaño de palabra.
 
 
-
 \subsection{Prueba de la función de reverb}
+Para comprobar el funcionamiento de la función de reverb se ha realizado una prueba sencilla. Se ha generado un estímulo de entrada de corta duración (un periodo de una señal sinusoidal) y se ha ajustado el número de muestras del retardo de reverberación para que el \emph{eco} se produzca justo después de finalizar la señal original, pudiendo así apreciarse mejor.
+
+Se ha comparado la señal obtenida con la función de reverb activada con la obtenida con la función de reverb desactivada. Mientras que en la señal filtrada sin reverb se pueden apreciar únicamente pequeñas oscilaciones derivadas de la respuesta de los filtros tras el ciclo sinusoidal de la señal original, en la señal con reverb se pueden apreciar claramente réplicas atenuadas de este ciclo a lo largo del tiempo.
+
+Las gráficas que muestran este resultado pueden verse en el apéndice~\ref{sec:resultadosreverb}.
+
+
 \subsection{Prueba de ajuste de ganancia}
+Para comprobar el funcionamiento de la función de ajuste de ganancia se ha observado la evolución de la señal de salida mientras se va modificando la ganancia. Para ilustrar este funcionamiento, se ha tomado una señal sinusoidal centrada en la frecuencia del filtro 3, y se ha ido aumentando la atenuación progresivamente en las bandas 2, 3 y 4. En la salida puede verse claramente como la señal va atenuandose a medida que vamos variando la ganancia.
+
+Observar de forma gráfica la evaluación temporal de la señal es la forma más adecuada de comprobar este funcionamiento. Las gráficas que muestran este resultado pueden verse en el apéndice~\ref{sec:resultadosajuste}.
+
 \subsection{Prueba de mejoras}
+Para comprobar el funcionamiento de los sumadores y multiplicadores se han realizado varias operaciones y se ha comparado el resultado que ofrecían nuestros sumadores y multiplicadores con el que resultaría de utilizar las funciones + y * de VHDL. Se pretende así comprobar que el uso de nuestros bloques operacionales corresponde exactamente al uso de las funciones VHDL. Para ello se ha elegido un conjunto de señales de prueba a sumar, teniendo cuidado en comprobar las operaciones con señales negativas.
+
+Los resultados son satisfactorios y se obtienen en todo caso los valores esperados.
+
+En las gráficas incluidas en el apéndice~\ref{sec:resultadosmejoras} puede observarse la comparación de estas señales.
+
+\subsubsection*{Observación sobre retardos}
+Como es de esperar, al utilizar nuestros sumadores y multiplicadores implementados con Full Adders con retardo, observamos los efectos de la propagación de las señales de suma y de acarreo. Esto se traduce en una oscilación en los valores del resultado que ofrecen nuestros bloques, que tarda unos nanosegundos en estabilizarse y ofrecer el valor correcto.
+
+Este efecto se elimina del resto del sistema mediante el uso de una señal de reloj. Utilizando un periodo de reloj mayor que el necesario para la generación de las sumas y multiplicaciones evitamos estas oscilaciones. En la simulación se ha establecido un periodo de reloj de 100ns, suficientemente alto ya que el retardo de los full adders es de 1 ns.
+
+En las gráficas incluidas en el apéndice~\ref{sec:resultadosmejoras} puede además verse la diferencia en el retardo de las diferentes configuraciones. Así, observamos como el sumador ripple carry en muchas ocasiones tarda sensiblemente más en estabilizar su resultado que el sumador carry bypass. También se observa esta diferencia en los multiplicadores. El multiplicador carry save tiene un retardo sensiblemente mejor que el del multiplicador en array. Esto corresponde con lo estudiado en teoría en clase.
 
 \appendix
 \clearpage
@@ -359,44 +389,101 @@ Estas gráficas corresponden a los resultados de los procedimientos descritos en
 \clearpage
 \subsection{Aplicando atenuación}
 \begin{figure}[hbt]
-\includegraphics[width=10cm]{img/respfiltro0_gain.pdf} 
+\includegraphics[width=\textwidth]{img/respfiltro0_gain.pdf} 
 \caption{Comprobación del filtro 0 (con atenuación)} \label{fig:filter0_gain}
 \end{figure}
 
 \begin{figure}[hbt]
-\includegraphics[width=10cm]{img/respfiltro1_gain.pdf} 
+\includegraphics[width=\textwidth]{img/respfiltro1_gain.pdf} 
 \caption{Comprobación del filtro 1 (con atenuación)} \label{fig:filter1_gain}
 \end{figure}
 
 \begin{figure}[hbt]
-\includegraphics[width=10cm]{img/respfiltro2_gain.pdf} 
+\includegraphics[width=\textwidth]{img/respfiltro2_gain.pdf} 
 \caption{Comprobación del filtro 2 (con atenuación)} \label{fig:filter2_gain}
 \end{figure}
 
 \begin{figure}[hbt]
-\includegraphics[width=10cm]{img/respfiltro3_gain.pdf} 
+\includegraphics[width=\textwidth]{img/respfiltro3_gain.pdf} 
 \caption{Comprobación del filtro 3 (con atenuación)} \label{fig:filter3_gain}
 \end{figure}
 
 \begin{figure}[hbt]
-\includegraphics[width=10cm]{img/respfiltro4_gain.pdf} 
+\includegraphics[width=\textwidth]{img/respfiltro4_gain.pdf} 
 \caption{Comprobación del filtro 4 (con atenuación)} \label{fig:filter4_gain}
 \end{figure}
 
 \begin{figure}[hbt]
-\includegraphics[width=10cm]{img/respfiltro5_gain.pdf} 
+\includegraphics[width=\textwidth]{img/respfiltro5_gain.pdf} 
 \caption{Comprobación del filtro 5 (con atenuación)} \label{fig:filter5_gain}
 \end{figure}
 
 \begin{figure}[hbt]
 \begin{center}
-\includegraphics[width=10cm]{img/respfiltro6_gain.pdf} 
+\includegraphics[width=\textwidth]{img/respfiltro6_gain.pdf} 
 \caption{Comprobación del filtro 6 (con atenuación)} \label{fig:filter6_gain}
 \end{center}
 \end{figure}
 
 \clearpage
 
+\section{Gráficas de evaluación de reverb}\label{sec:resultadosreverb}
+\begin{figure}[hbt]
+\begin{center}
+\includegraphics[width=10cm]{img/test_reverb.pdf} 
+\caption{Comprobación de la función reverb} \label{fig:reverbgraph}
+\end{center}
+\end{figure}
+
+\clearpage
+\section{Gráficas de evaluación de ajuste de ganancia}\label{sec:resultadosajuste}
+\begin{figure}[hbt]
+\begin{center}
+\includegraphics[width=10cm]{img/test_adjust.pdf} 
+\caption{Comprobación del ajuste de ganancia} \label{fig:adjustgraph}
+\end{center}
+\end{figure}
+
+\clearpage
+
+\section{Gráficas de prueba de mejoras}\label{sec:resultadosmejoras}
+\subsection{Sumadores}
+En la gráfica que se presenta a continuación se pueden observar las siguientes señales:
+\begin{description}
+\item[Valid\_rc] Esta señal se pone a nivel alto cuando el resultado del sumador ripple carry es válido.
+\item[Valid\_cb] Esta señal se pone a nivel alto cuando el resultado del sumador carry bypass es válido.
+\item[sig1] Término 1 de la suma.
+\item[sig2] Término 2 de la suma.
+\item[sout\_rc] Resultado del sumador ripple carry.
+\item[sout\_cb] Resultado del sumador carry bypass.
+\item[sout\_ts] Resultado de la función + VHDL
+\end{description}
+En las señales valid\_rc y valid\_cb se observa la diferencia entre los tiempos de retardo de ambos sumadores.
+\begin{figure}[hbt]
+\begin{center}
+\includegraphics[width=\textwidth]{img/adder_test.png} 
+\caption{Comprobación de sumadores} \label{fig:addertest}
+\end{center}
+\end{figure}
+
+\subsection{Multiplicadores}
+En la gráfica que se presenta a continuación se pueden observar las siguientes señales:
+\begin{description}
+\item[Valid\_ar] Esta señal se pone a nivel alto cuando el resultado del multiplicador en array es válido.
+\item[Valid\_cs] Esta señal se pone a nivel alto cuando el resultado del multiplicador carry save es válido.
+\item[signal1] Factor de la multiplicación.
+\item[signal2] Factor de la multiplicación.
+\item[mult\_cs] Resultado del multiplicador carry save.
+\item[mult\_ar] Resultado del multiplicador en array.
+\item[mult\_test] Resultado de la función * VHDL
+\end{description}
+En las señales valid\_ar y valid\_cs se observa la diferencia entre los tiempos de retardo de ambos multiplicadores.
+\begin{figure}[hbt]
+\begin{center}
+\includegraphics[width=\textwidth]{img/multiplier_test.png} 
+\caption{Comprobación de multiplicadores} \label{fig:multipliertest}
+\end{center}
+\end{figure}
 
 
 \end{document}
