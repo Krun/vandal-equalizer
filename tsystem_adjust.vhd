@@ -1,3 +1,4 @@
+--Fichero de testbench del ajuste de ganancia
 
 library ieee;
 use ieee.std_logic_1164.all;

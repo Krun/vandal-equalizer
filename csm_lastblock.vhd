@@ -1,3 +1,6 @@
+--Ultimo bloque del multiplicador carry save
+--Difiere de los anteriores bloques porque si propaga acarreo en la fila
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;

@@ -1,3 +1,6 @@
+--Banco de filtros
+--Contiene los filtros para todas las bandas y el ajuste de ganancias
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;

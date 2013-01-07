@@ -1,3 +1,5 @@
+--Fichero de prueba del sistema reverb con mejoras añadidas
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;

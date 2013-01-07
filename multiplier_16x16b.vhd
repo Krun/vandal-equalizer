@@ -1,3 +1,6 @@
+--Multiplicador de 16x16bits
+--Contiene arquitectura en array y carry save
+
 
 library ieee;
 use ieee.std_logic_1164.all;

@@ -1,3 +1,6 @@
+--Filtro genérico
+--Filtro IIR de orden dos. Los coeficientes se pueden ajustar mediante genéricos
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;

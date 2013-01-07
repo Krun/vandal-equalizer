@@ -1,3 +1,4 @@
+--Fichero de testbench para obtener las respuestas al impulso de los filtros
 
 library ieee;
 use ieee.std_logic_1164.all;

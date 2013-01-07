@@ -1,3 +1,8 @@
+--
+-- Gestor de ficheros
+-- Modulo auxiliar para leer y escribir señales
+--
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;

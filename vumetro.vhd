@@ -1,3 +1,5 @@
+--Vumetro combinado de 7 entradas
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;

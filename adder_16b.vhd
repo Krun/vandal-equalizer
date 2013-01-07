@@ -1,3 +1,7 @@
+--Sumador de 16 bits
+--Contiene arquitectura ripple carry y carry bypass
+
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
