@@ -24,6 +24,7 @@ port (
          );
 END COMPONENT ;
 signal carry : std_logic_vector(14 downto 0) := "000000000000000";
+
 begin
 
 fa0 : FA

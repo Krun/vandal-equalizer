@@ -26,7 +26,7 @@ architecture comport of filehandler is
   file stimulus: TEXT open read_mode is stim_file;
   file l_file: TEXT open write_mode is log_file;
   
-  signal Y : std_logic_vector(15 downto 0);
+  signal Y : std_logic_vector(15 downto 0) := "0000000000000000";
   begin
   source <= signed(Y);
 
@@ -36,8 +36,8 @@ architecture comport of filehandler is
   begin
      EOG <= '0';
      -- wait for Reset to complete
-     --wait until RST='1';
-     --wait until RST='0';
+     wait until RST='1';
+     wait until RST='0';
      while not endfile(stimulus) loop
   
        -- read digital data from input file

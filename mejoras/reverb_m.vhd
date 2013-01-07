@@ -39,6 +39,7 @@ END COMPONENT ;
 
 signal gainout : signed (31 downto 0);
 signal delayout : signed(15 downto 0);
+signal delayin : signed(15 downto 0);
 
 begin
   
@@ -47,7 +48,7 @@ begin
   GENERIC MAP (
     size => size)
   PORT MAP (
-    datain => datain,
+    datain => delayin,
     dataout => delayout,
     clk => clk
   );
@@ -59,7 +60,20 @@ begin
     mult => gainout
   );
   
-  dataout <= gainout (25 downto 10) when enable = '1' else to_signed(0,16);
+clock_s : process(clk)
+begin
+  if (clk'event and clk = '1') then
+    if (enable = '1') then
+      dataout <= gainout (25 downto 10);
+    else
+      dataout <= to_signed(0,16);
+    end if;
+  end if;
+end process;
+
+delayin <= datain when enable = '1' else to_signed(0,16);
+
+
 
 end revarch_mod;
    

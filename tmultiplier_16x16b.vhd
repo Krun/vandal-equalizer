@@ -4,7 +4,9 @@ use ieee.numeric_std.all;
 
 entity test_multiplier_16x16b is
 port (
- valid : out boolean
+ valid : out boolean;
+ valid_ar : out boolean;
+ valid_cs : out boolean
 );
 end;
 
@@ -14,29 +16,37 @@ COMPONENT multiplier_16x16b
 port (
     sigA : in signed (15 downto 0);
     sigB : in signed (15 downto 0);
-    cin : in std_logic;
-    cout : out std_logic;
     mult : out signed (31 downto 0)
          );
 END COMPONENT ;
 
+for arr_mult : multiplier_16x16b use entity work.multiplier_16x16b(array_arch);
+for cs_mult : multiplier_16x16b use entity work.multiplier_16x16b(carry_save_arch);
 
 SIGNAL sig1 : signed (15 downto 0) := "0000000000000000";
 SIGNAL sig2 : signed (15 downto 0) := "0000000000000000";
 SIGNAL mout_cs : signed (31 downto 0);
+SIGNAL mout_ar : signed (31 downto 0);
 SIGNAL mout_ts : signed (31 downto 0);
 
 begin
 
 mout_ts <= sig1 * sig2;
-valid <= (mout_ts - mout_cs) = "00000000000000000000000000000000";
+valid_ar <= (mout_ar - mout_ts) = "00000000000000000000000000000000";
+valid_cs <= (mout_cs - mout_ts) = "00000000000000000000000000000000";
+valid <= ((mout_cs - mout_ts) OR (mout_ar - mout_ts)) = "00000000000000000000000000000000";
 
-mult : multiplier_16x16b
+arr_mult : multiplier_16x16b
    PORT MAP (
     sigA => sig1,
     sigB => sig2,
-    cin => '0',
-    cout => open,
+    mult => mout_ar
+    );
+    
+cs_mult : multiplier_16x16b
+   PORT MAP (
+    sigA => sig1,
+    sigB => sig2,
     mult => mout_cs
     );
    

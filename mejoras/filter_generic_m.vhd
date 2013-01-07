@@ -52,6 +52,8 @@ architecture filter_arch_mod of filter_generic_m is
   signal b2sig : signed(15 downto 0) := to_signed(b2,16);
   signal gssig : signed(15 downto 0) := to_signed(gs,16);
   
+  signal gsin : signed (15 downto 0) := to_signed(0,16);
+  
   signal prod0 : signed(31 downto 0); -- b0*sin
   signal prod1 : signed(31 downto 0); -- (-a1)*historia0
   signal prod2 : signed(31 downto 0); -- (-a2)*historia1
@@ -63,12 +65,23 @@ architecture filter_arch_mod of filter_generic_m is
   signal suma2 : signed(15 downto 0); -- suma1 + prod3
   signal suma3 : signed(15 downto 0); -- suma2 + prod4
   
-  signal prod5 : signed(31 downto 0); -- gs*suma3
+  signal prodsin : signed(31 downto 0); -- gs*sin
 begin
+  
+  --aplicamos primero la ganancia final para evitar saturación en puntos intermedios
+  mult_s : multiplier_16x16b
+  PORT MAP(
+    sigA => gssig,
+    sigB => sin,
+    mult => prodsin
+  );
+  
+  gsin <= prodsin(25 downto 10);
+  
   mult0 : multiplier_16x16b
   PORT MAP(
     sigA => b0sig,
-    sigB => sin,
+    sigB => gsin,
     mult => prod0
   );
   mult1 : multiplier_16x16b
@@ -96,12 +109,7 @@ begin
     mult => prod4
   );
   
-  mult_s : multiplier_16x16b
-  PORT MAP(
-    sigA => gssig,
-    sigB => suma3,
-    mult => prod5
-  );
+
   
   add0 : adder_16b
   PORT MAP(
@@ -144,7 +152,8 @@ begin
 
 	begin
 		if (clk'event and clk = '1') then
-			sout <= prod5(25 downto 10);
+			--sout <= prod5(25 downto 10);
+			sout <= suma3;
 			historia1 <= historia0;
 			historia0 <= suma1;
 		end if;

@@ -3,6 +3,10 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity equalizer_system is
+  generic (
+  reverb_size : integer := 256;
+  reverb_gain : integer := 100
+  );
 port (
 	sin : in signed (15 downto 0);
 	sout : out signed (15 downto 0);
@@ -25,16 +29,16 @@ end equalizer_system;
 
 architecture whole of equalizer_system is
 
-signal f0_out : signed (15 downto 0);
-signal f1_out : signed (15 downto 0);
-signal f2_out : signed (15 downto 0);
-signal f3_out : signed (15 downto 0);
-signal f4_out : signed (15 downto 0);
-signal f5_out : signed (15 downto 0);
-signal f6_out : signed (15 downto 0);
-signal fb_out : signed (15 downto 0);
-signal rv_out : signed (15 downto 0);
-signal fb_in : signed (15 downto 0);
+signal f0_out : signed (15 downto 0) := to_signed(0,16);
+signal f1_out : signed (15 downto 0) := to_signed(0,16);
+signal f2_out : signed (15 downto 0) := to_signed(0,16);
+signal f3_out : signed (15 downto 0) := to_signed(0,16);
+signal f4_out : signed (15 downto 0) := to_signed(0,16);
+signal f5_out : signed (15 downto 0) := to_signed(0,16);
+signal f6_out : signed (15 downto 0) := to_signed(0,16);
+signal fb_out : signed (15 downto 0) := to_signed(0,16);
+signal rv_out : signed (15 downto 0) := to_signed(0,16);
+signal fb_in : signed (15 downto 0) := to_signed(0,16);
 
 component filter_bench is
 port (
@@ -99,8 +103,8 @@ sout <= fb_out;
 
 reverb0 : reverb
   GENERIC MAP (
-    size => 256,
-    gain => 100)
+    size => reverb_size,
+    gain => reverb_gain)
    PORT MAP (
    enable => rev_en,
    datain => fb_out,

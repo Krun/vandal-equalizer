@@ -3,10 +3,10 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 
-entity test_equalizer_system is
+entity test_system_reverb is
 end;
 
-architecture only of test_equalizer_system is
+architecture only of test_system_reverb is
 
 signal CLK : bit := '0';
 signal RST : std_logic := '0';
@@ -86,9 +86,7 @@ end component;
 
 
 begin
-equal <=  sink = sink2;
--- compensamos retardo de 1 ciclo de reloj en sistema modificado (para comparar)
-sink <= tsink after 100 ns;
+
 fh : filehandler
 
   GENERIC MAP (
@@ -112,21 +110,22 @@ fh2 : filehandler
     RST => '0',
     EOG => open);
     
-es : equalizer_system
+   
+esm2 : equalizer_system_m
   GENERIC MAP(
-    reverb_size => 25,
+    reverb_size => 32,
     reverb_gain => 200
   )
 
   PORT MAP (
     sin => source,
-  	 sout => tsink,
+  	 sout => sink,
   	 clk => clk,
   	 f_sel => "000",
   	 g_sel => "0000",
   	 g_en => '0',
   	
-  	 rev_en => rev,
+  	 rev_en => '0',
   	
   	 level0 => open,
   	 level1 => open,
@@ -136,35 +135,10 @@ es : equalizer_system
   	 level5 => open,
   	 level6 => open
   	);
-   
---esm2 : equalizer_system_m
---  GENERIC MAP(
---    reverb_size => 25,
---    reverb_gain => 200
---  )
---
---  PORT MAP (
---    sin => source,
---  	 sout => sink,
---  	 clk => clk,
---  	 f_sel => "000",
---  	 g_sel => "0000",
---  	 g_en => '0',
---  	
---  	 rev_en => '0',
---  	
---  	 level0 => open,
---  	 level1 => open,
---  	 level2 => open,
---  	 level3 => open,
---  	 level4 => open,
---  	 level5 => open,
---  	 level6 => open
---  	);
   	
 esm : equalizer_system_m
   GENERIC MAP(
-    reverb_size => 25,
+    reverb_size => 32,
     reverb_gain => 200
   )
 
@@ -207,6 +181,7 @@ end PROCESS reverb;
 
 
 end only;
+
 
 
 

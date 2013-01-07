@@ -13,8 +13,7 @@ port (
 end FA;
 
 architecture full_adder_arch of FA is
-
 begin
-  sum <= a XOR b XOR ci after 1 ns;
-  co <= (a AND b) OR (b AND ci) OR (a AND ci) after 1 ns;
+  sum <= transport a XOR b XOR ci after 1 ns;
+  co <= transport (a AND b) OR (b AND ci) OR (a AND ci) after 1 ns;
 end full_adder_arch;

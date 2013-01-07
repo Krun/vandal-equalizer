@@ -314,15 +314,9 @@ filter6 : filter_generic_m
   --
   -- gout_o <= suma6*gf
   
-  sout0 <= gout0(25 downto 10);
-  sout1 <= gout1(25 downto 10);
-  sout2 <= gout2(25 downto 10);
-  sout3 <= gout3(25 downto 10);
-  sout4 <= gout4(25 downto 10);
-  sout5 <= gout5(25 downto 10);
-  sout6 <= gout6(25 downto 10);
+
   
-  sout <= gout_o(25 downto 10);
+  
 
   select_ganancia : process (g_en)
     variable gn : signed(15 downto 0);
@@ -360,5 +354,19 @@ filter6 : filter_generic_m
       END CASE;
     end if;
   end process;
+  
+  clock_s : process(clk)
+begin
+  if (clk'event and clk = '1') then
+    sout <= gout_o(25 downto 10);
+    sout0 <= gout0(25 downto 10);
+    sout1 <= gout1(25 downto 10);
+    sout2 <= gout2(25 downto 10);
+    sout3 <= gout3(25 downto 10);
+    sout4 <= gout4(25 downto 10);
+    sout5 <= gout5(25 downto 10);
+    sout6 <= gout6(25 downto 10);
+  end if;
+end process;
 
 end bench1;

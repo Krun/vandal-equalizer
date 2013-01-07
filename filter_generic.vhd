@@ -39,7 +39,9 @@ architecture filter_arch of filter_generic is
   
   signal prod5 : signed(31 downto 0); -- gs*suma3
 begin
-  prod0 <= b0*sin;
+  prod5 <=  gs*sin; --rm
+  
+  prod0 <= b0*prod5(25 downto 10); --rm
   prod1 <= (-a1)*historia0;
   prod2 <= (-a2)*historia1;
   prod3 <= b1*historia0;
@@ -50,12 +52,13 @@ begin
   suma2 <= suma1+prod3(25 downto 10);
   suma3 <= suma2+prod4(25 downto 10);
   
-  prod5 <= gs*suma3;
+  --prod5 <= gs*suma3;
   
 	filter_proc: process(clk)
 	begin
 		if (clk'event and clk = '1') then
-			sout <= prod5(25 downto 10);
+			--sout <= prod5(25 downto 10);
+			sout <= suma3; --rm
 			historia1 <= historia0;
 			historia0 <= suma1;
 		end if;
