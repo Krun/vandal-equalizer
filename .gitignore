@@ -32,3 +32,6 @@ transcript
 *.mtc1
 *.out
 *.synctex.gz
+
+*.asv
+*.m~
