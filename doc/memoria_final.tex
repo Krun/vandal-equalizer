@@ -1,7 +1,6 @@
-\documentclass[a4paper,12pt]{report}
+\documentclass[a4paper,12pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage{mathtools}
-\usepackage{listings}
 \usepackage{framed}
 \usepackage{epstopdf}
 \usepackage[spanish]{babel}
@@ -55,12 +54,9 @@
 
 \newpage
 \tableofcontents % indice de contenidos
-\addcontentsline{toc}{chapter}{Contenidos} % para que aparezca en el indice de 
+\addcontentsline{toc}{section}{Contenidos} % para que aparezca en el indice de 
 
-\chapter*{Introducción}
-\addcontentsline{toc}{chapter}{Introducción}
-\section*{Descripción del proyecto}
-\addcontentsline{toc}{section}{Descripción del proyecto}
+\section{Introducción}
 En esta memoria vamos a tratar un proyecto realizado para la asignatura \emph{Diseño de Circuitos y Sistemas Electrónicos} impartida en la ETSI de Telecomunicación de la Universidad Politécnica de Madrid.
 
 El proyecto se propone como trabajo adicional a la asignatura, para tratar los temas de diseño de circuitos digitales de una forma más práctica y obtener conocimientos mucho más amplios sobre tecnologías relacionadas con estos campos.
@@ -69,19 +65,7 @@ En concreto, la propuesta consiste en el diseño y simulación de un sistema uti
 
 El esquema de dicho sistema puede verse en la figura~\ref{fig:sysdesc}. El proyecto que nos ocupa se centrará en la realización del subsistema de procesado digital de audio, cuyo esquema puede verse en la figura~\ref{fig:digproc}.
 
-El proyecto se ha estructurado en 5 hitos, correspondientes al diseño de cada uno de los subsistemas necesarios, de la forma siguiente:
-
-\begin{description}
-\item[Hito 1] Diseño y caracterización de filtros
-\item[Hito 2] Subsistema de ecualización
-\item[Hito 3] Reverberación
-\item[Hito 4] Integración global
-\item[Hito 5] Mejoras
-\end{description}
-
-Además, se propone un \emph{hito 0} de introducción a VHDL, con el objetivo de familiarizarse con el lenguaje VHDL y las herramientas que se utilizarán para el desarrollo y simulación del sistema.
-
-Para la realización del proyecto se utilizará la herramienta ModelSim. De forma auxiliar, se utilizará la herramienta MATLAB para obtener de forma más sencilla y eficiente información sobre las respuestas de los filtros tanto en el tiempo como en el dominio de la frecuencia.
+Para la realización del proyecto se ha utilizado la herramienta ModelSim. De forma auxiliar, se utilizará la herramienta MATLAB para el tratamiento de las señales obtenidas de forma sencilla y eficiente, para poder así evaluar el funcionamiento del sistema.
 
 \begin{figure}[hbt]
 \includegraphics[width=\textwidth]{img/system_description.png} 
@@ -93,10 +77,24 @@ Para la realización del proyecto se utilizará la herramienta ModelSim. De form
 \caption{Descripcción del subsistema de procesado digital} \label{fig:digproc}
 \end{figure}
 
-\chapter{Diseño y caracterización de filtros}
-En este capítulo vamos a detallar el proceso de diseño y caracterización de los filtros digitales, lo que corresponde al Hito 1 de nuestro proyecto.
+\subsection{Descripción de los módulos VHDL}
+El subsistema digital representado en la figura~\ref{fig:digproc} se va a dividir en los siguientes módulos principales VHDL:
+\begin{description}
+\item[Banco de filtros] Este módulo incluye los 7 filtros digitales que separarán la señal de entrada en sus diferentes bandas de frecuencia. Incluye 7 submódulos correspondientes a los 7 filtros digitales. Además, este módulo ofrece la funcionalidad de selección de ganancia, como se explicará posteriormente.
+\item[Módulo de reverberación] Este módulo sirve para retardar y atenuar una señal. Se utilizará para realimentar en el banco de filtros la salida retardada hasta la entrada, para generar un efecto de reverberación. El subsistema de retardo se ha implementado independientemente como un submódulo.
+\item[Vúmetro] Proporciona información sobre el nivel de señal de cada una de las bandas de audio. Consiste en 7 elementos vúmetro individuales que se agrupan para obtener el vúmetro de 7 bandas.
+\end{description}
 
-\section{Descripción de filtros para las distintas bandas de frecuencias}
+Todo ello se ha agrupado en un único módulo \emph{ecualizador}, para facilitar la simulación y la ejecución de pruebas. La relación de módulos y señales puede verse en la figura~\ref{fig:vhdl_schema}.
+
+Por último, se han implementado sumadores y multiplicadores con las estructuras estudiadas en clase. Como mejora, se han sustituido las operaciones de suma y multiplicación de señales en el sistema mediante funciones VHDL (operadores + y *) por sumas y productos obtenidos mediante sumadores y multiplicadores más realistas.
+
+\begin{figure}[hbt]
+\includegraphics[width=\textwidth]{img/vhdl_schema.pdf} 
+\caption{Relación de módulos VHDL} \label{fig:vhdl_schema}
+\end{figure}
+
+\section{Diseño de banco de filtros}
 El sistema propuesto se trata de un ecualizador de audio, por lo que las señales de entrada que tendremos estarán comprendidas en el rango de frecuencias audibles por el hombre. En concreto, la especificación del sistema propuesto propone señales cuya frecuencia estará comprendida aproximadamente entre los 22 Hz y los 2.8 KHz.
 
 Este rango de frecuencias se dividirá en 7 bandas, para lo cual utilizaremos filtros IIR de segundo orden. Las bandas de frecuencias se detallan en la tabla \ref{tab:filters}, y los coeficientes para la realización de los filtros IIR en la tabla \ref{tab:filters}.
@@ -153,7 +151,7 @@ Este rango de frecuencias se dividirá en 7 bandas, para lo cual utilizaremos fi
 \end{center}
 \end{table}
 
-\section{Implementación de los filtros en VHDL}
+\subsection{Implementación de los filtros en VHDL}
 Para una implementación más sencilla de los filtros, utilizaremos la \emph{Forma directa II}. El detalle de esta implementación se puede ver en la figura \ref{fig:filter_diagram}.
 
 \begin{figure}[hbt]
@@ -163,339 +161,133 @@ Para una implementación más sencilla de los filtros, utilizaremos la \emph{For
 
 A la hora de implementar estos filtros digitales, tenemos que tener en cuenta una limitación muy importante. Debemos definir un ancho de palabra fijo para la representación de las señales de entrada y de salida. En nuestro caso, hemos escogido un ancho de palabra de \emph{16 bits}, correspondientes a \emph{6 bits enteros} y \emph{10 bits fraccionarios}. Esto es especialmente conveniente a la hora de representar los coeficientes de los filtros, ya que para todos ellos tenemos que $a_0 = 1024$. Normalizar los coeficientes realizando una división por 1024 equivale a desplazar los bits 10 lugares a la derecha (o lo que es lo mismo, la coma decimal 10 lugares a la izquierda). De esta forma, cuando representemos los coeficientes enteros como palabras binarias de 16 bits, bastará como tomar los 10 bits menos significativos como fraccionarios para tener el coeficiente normalizado a 1024.
 
-A continuación se muestra el código de la implementación de los filtros en VHDL. La implementación de los 7 filtros es idéntica, cambiando únicamente el valor de las constantes $a_1$, $a_2$ y G, ya que el resto de coeficientes son iguales en todos los casos.
+\subsection{Ruido de cuantificación}
+El haber elegido un ancho de palabra de 16 bits con 6 bits enteros y 10 fraccionarios nos impone una limitación considerable en cuanto a la resolución de nuestro sistema a la hora de representar señales. Sobretodo en señales de amplitud baja, tendremos un ruido de cuantificación que puede llegar a influir en el correcto funcionamiento de nuestro sistema.
 
-\begin{vhdlcode}
-library ieee;
-use ieee.std_logic_1164.all;
-use ieee.std_logic_arith.all;
-use ieee.std_logic_signed.all;
+Para intentar minimizar el ruido de cuantificación, se puede intentar ajustar más el numero de bits enteros, ya que las señales con las que trabajaremos estan normalizadas a 1, y a priori debería bastarnos con un bit entero y 15 fraccionarios. Este enfoque se ha intentado realizar sin éxito en la implementación, ya que aunque las señales de entrada esten normalizadas a 1, en puntos intermedios de los filtros algunas señales pueden tomar valores más altos, produciendo desbordamiento. Por ello, se ha decidido tomar una postura más conservadora y mantener la representación con 10 bits fraccionarios, que aunque no es óptima en sentido del ruido de cuantificación, nos ofrece mayor seguridad frente a desbordamiento.
 
-entity filterX is
-port (
-    sin : in std_logic_vector (15 downto 0);
-    sout : out std_logic_vector (15 downto 0);
-    clk : in bit);
-end;
+Otra forma de abordar este problema sería utilizar palabras de 32 bits en lugar de 16. Esto nos ofrecería una resolución enormemente mayor, mejorando sensiblemente la calidad del sistema. No obstante, trabajar con palabras de 32 bits supone una complejidad mucho mayor a la hora de implementar los sumadores y multiplicadores vistos en clase. Debido a que el objetivo del proyecto es mayormente didáctico y no obtener una calidad de audio excepcional, se ha decidido mantener las palabras de 16 bits y asumir los efectos del ruido de cuantificación.
 
-architecture filterarchX of filterX is
-    signal historia0 : std_logic_vector (15 downto 0) 
-                := conv_std_logic_vector(0,16);
-    signal historia1 : std_logic_vector (15 downto 0) 
-                := conv_std_logic_vector(0,16);
-    constant b0 : std_logic_vector (15 downto 0) 
-                := conv_std_logic_vector(XXX,16);
-    constant b1 : std_logic_vector (15 downto 0) 
-                := conv_std_logic_vector(XXX,16);
-    constant b2 : std_logic_vector (15 downto 0) 
-                := conv_std_logic_vector(XXX,16);
-    constant a1 : std_logic_vector (15 downto 0) 
-                := conv_std_logic_vector(XXX,16);
-    constant a2 : std_logic_vector (15 downto 0) 
-                := conv_std_logic_vector(XXX,16);
-    constant gs : std_logic_vector (15 downto 0) 
-                := conv_std_logic_vector(XXX,16);
+\subsection{Ajuste de ganancias}
+Además de separar la señal en 7 bandas de frecuencias, el banco de filtros de nuestro sistema debe aplicar a cada uno una ganancia ajustable y disponer a la salida de la señal global sumada.
 
-begin
-    filter_proc: process(clk)
-        variable sum1 : std_logic_vector (31 downto 0);
-        variable sum2 : std_logic_vector (31 downto 0);
-        variable mult : std_logic_vector (31 downto 0);
+La selección de ganancia para cada banda se realiza mediante 3 entradas adicionales:
+\begin{description}
+\item[Entrada f\_sel] Entrada de 3 bits mediante la cual seleccionamos el filtro (de 0 a 6) cuya ganancia queremos ajustar.
+\item[Entrada g\_sel] Entrada de 4 bits mediante la cual seleccionamos la ganancia que queremos aplicar al filtro seleccionado. Estas ganancias se encuentran definidas en el propio sistema en forma de tabla, de forma que a cada uno de los valores 0 a 15 le corresponde un valor de ganancia predefinido.
+\item[Entrada g\_en] Señal de \emph{enable} del sistema de selección de ganancia. Cuando se detecta un flanco de subida se aplica la ganancia seleccionada al filtro seleccionado.
+\end{description}
 
-    begin
-        if (clk'event and clk = '1') then
-            sum1 := b0*sin - a1*historia0 - a2*historia1;
-            sum2 := sum1 + b1*historia0 + b2*historia1;
-            historia1 <= historia0;
-            historia0 <= sum1(25 downto 10);
-            mult := gs*sum2(25 downto 10);
-            sout <= mult(25 downto 10);
-        end if;
-    end process;
-end filterarchX;
-\end{vhdlcode}
-\clearpage
+Para evitar desbordamiento en la señal al aplicar la ganancia, trabajaremos con posibles valores de ganancia menores que 1 (atenuaremos la señal). De esta forma, la ganancia numero 0 corresponde a una ganancia de 0dB, y de ahí se irá bajando a medida que aumente el índice de la ganancia seleccionada.
 
-\section{Comprobación de la validez de los filtros}
-Finalmente, tras haber implementado los 7 filtros en VHDL, debemos comprobar mediante simulación que su funcionamiento es el correcto. Para ello, nos ayudaremos de la herramienta \emph{MATLAB}, que nos permite fácilmente realizar filtros dados los coeficientes \emph{a} y \emph{b} de los que disponemos.
+\section{Diseño de módulo de reverberación}
+El subsistema de reverberación consiste en un módulo que ofrece a la salida la señal que obtiene a la entrada con un retraso de N posiciones y aplicandole una atenuación determinada.
 
-Para comprobar que el funcionamiento de nuestros filtros es el correcto, obtendremos sus respuestas al impulso colocando en la simulación a la entrada una función $\delta[n]$. Realizaremos la misma operación en MATLAB y comprobaremos que ambas respuestas sean iguales.
+Para la implementación de este módulo se ha utilizado como base una cola FIFO, en la cual se va introduciendo la señal que posteriormente se va obteniendo por la salida tras N ciclos de reloj. Para ello es importante inicializar la cola para que esté llena de palabras a cero, ya que si no la primera muestra de la señal de entrada ocuparía la primera posición y sería la que se ofrecería a la salida en el siguiente ciclo de reloj.
 
-En las figuras \ref{fig:filter0}, \ref{fig:filter1}, \ref{fig:filter2}, \ref{fig:filter3}, \ref{fig:filter4}, \ref{fig:filter5} y \ref{fig:filter6} se pueden ver las comprobaciones realizadas. Para cada filtro, se ha representado: La respuesta al impulso obtenida en la simulación con ModelSim (arriba a la izquierda); la respuesta al impulso obtenida con MATLAB (arriba a la derecha); y la diferencia en valor absoluto de ambas señales (debajo).
+En nuestro sistema, el numero de palabras en la cola será siempre fijo e igual al número de muestras que queramos retrasar la señal. La implementación de una cola FIFO tiene cierta complejidad derivada del hecho de que el numero de palabras en la cola es variable y puede ser impredecible, conllevando posibles problemas de desbordamiento o cola vacía. Sin embargo, puesto que el funcionamiento de nuestro retardador es mucho más predecible (llegará una muestra por cada ciclo de reloj y sacaremos una muestra por cada ciclo de reloj, resultando en un tamaño constante) podemos simplificar considerablemente este diseño.
 
-Para todas ellas, se puede apreciar que la diferencia es de un valor cientos de veces menor que el de la señal. Esto se debe al error de cuantificación introducido al limitar nuestro sistema a palabras de 16 bits con 10 bits fraccionarios. El error se va acumulando tras las diferentes iteraciones del filtro, y se empieza a compensar cuando la respuesta al impulso es negativa y el error se produce con el signo contrario. 
+Se ha implementado para ello el subsistema \emph{delay}, que consiste en una memoria de N posiciones (tamaño configurable mediante genéricos) con un puntero señalando a una de esas posiciones. En cada ciclo de reloj, se sacará la señal de la posición indicada por el puntero y se añadirá en su lugar la señal que llegue a la entrada. El valor del puntero se va aumentando de forma cíclica, de forma que la señal que acabamos de introducir no se sacará hasta que el puntero vuelva a apuntar a esa misma posición, es decir, tras N ciclos de reloj.
+
+Posteriormente, la señal se atenúa mediante un valor de ganancia también configurable mediante genéricos, y se realimenta a la entrada del banco de filtros.
+\section{Diseño de vúmetro}
+El vúmetro ofrece información sobre el nivel de señal disponible en cada una de las bandas de señal. Para abordar la implementación de este módulo, se ha implementado un subsistema vúmetro con úna única entrada que ofrece el nivel de la señal que tenga a la entrada. Estos vúmetros individuales se agrupan en un módulo vúmetro de 7 entradas, que conectaremos a la salida de cada uno de los filtros del banco de filtros.
+
+Cada uno de los vúmetros individuales generan a la salida una señal de 8 bits, simulando los leds que tradicionalmente se utilizan en estos sistemas. El número de bits que se pongan a 1 en la señal (leds que se iluminan) indicará el nivel de la señal en esa banda.
+
+Para detectar el nivel de la señal, observaremos la palabra a nivel binario. Una palabra de la señal está representada de la siguiente forma:
+$$X_{15} X_{14} X_{13} X_{12} X_{11} X_{10} X_{9} X_{8} X_{7} X_{6} X_{5} X_{4} X_{3} X_{2} X_{1} X_{0}$$
+Definiremos cada uno de los 8 niveles de señal dividiendo los 16 bits en conjuntos de dos. Así, el nivel 0 corresponderá a todos los bits a 0, el nivel 1 se alcanzará cuando sólo los bits $X_1$ o $X_0$ estén a nivel alto, el nivel 2 si los bits $X_4$ o $X_3$ están a 1, y así sucesivamente. cada uno de estos niveles \emph{encenderá} a la salida el led correspondiente a su nivel además de todos los de los niveles anteriores.
+
+Para tener en cuenta las posibles palabras negativas en complemento a dos, es importante tener en cuenta que debemos observar siempre el valor absoluto de las señales, ya que si no siempre obtendríamos el nivel más alto para cualquier entrada negativa.
+
+\subsection{Mantenimiento del nivel}
+Debido a las posibles variaciones rápidas de la señal, es importante que los picos a la salida del vúmetro se mantengan un mínimo tiempo para su correcta visualización.
+
+Para implementar este comportamiento, se ha definido el siguiente procedimiento:
+\begin{enumerate}
+\item Se toma una muestra a la entrada y se mantiene en memoria
+\item Se inicia un contador (configurable mediante genéricos) que indica el tiempo mínimo que se han de mantener los niveles a la salida
+\item Si a la entrada llega alguna muestra mayor a la que tenemos en memoria, se sustituye y se reinicia el contador, comenzando el proceso desde el principio.
+\item Si el contador llega a cero, se elimina la señal de memoria, permitiendo que otras señales más bajas tomen el lugar de la muestra. En este punto el pico anterior deja de mantenerse y el nivel del vúmetro puede bajar
+\item La siguiente muestra entra en memoria y se reinicia el proceso
+\end{enumerate}
+
+Esto nos permite mantener de forma sencilla los niveles un mínimo de tiempo en pantalla sin perder información de posibles picos que puedan aparecer mientras estamos manteniendo la señal.
+
+\section{Mejoras}
+Para la aplicación de los conocimientos obtenidos en la asignatura \emph{Diseño de Circuitos y Sistemas Electrónicos}, se ha propuesto la realización de varias modificaciones que se corresponden con lo estudiado en la parte digital de la asignatura.
+
+En concreto, se ha propuesto la implementación de sumadores y multiplicadores binarios, correspondiendose con las configuraciones estudiadas en clase. Estas implementaciones se han de realizar a bajo nivel, mediante la conexión y configuración de \emph{Full Adders}, ilustrando además los efectos de retardo en cada una de las distintas configuraciones.
+
+En concreto, se han implementado las siguientes configuraciones:
+\begin{itemize}
+\item Sumador ripple carry
+\item Sumador carry bypass
+\item Multiplicador en array
+\item Multiplicador carry save
+\end{itemize}
+
+Se ha supuesto para ello un retardo en los \emph{Full Adder} fijo de 1 ns, tanto en la generación de la señal de suma como en la señal de carry. Esto nos permite observar el efecto de los distintos caminos críticos en el retardo en la generación de las señales.
+
+\subsection{Sumador Ripple Carry}
+Este sumador es el más sencillo en términos de implementación. Simplemente se han conectado 16 full adders de forma secuencial de forma que el acarreo se propague de uno a otro.
+
+En la figura~\ref{fig:ripple_carry_adder} se muestra un esquema simplificado (4 bits) de este sumador.
 
 \begin{figure}[hbt]
-\includegraphics[width=\textwidth]{img/respfiltro0.pdf} 
-\caption{Comprobación del filtro 0} \label{fig:filter0}
+\includegraphics[width=\textwidth]{img/ripple_carry_adder.png} 
+\caption{Sumador Ripple Carry de 4 bits} \label{fig:ripple_carry_adder}
+\end{figure}
+
+\subsection{Sumador Carry Bypass}
+El sumador \emph{Carry Bypass} (o \emph{Carry Skip}) permite reducir el tiempo de retardo del camino crítico sensiblemente. En la figura~\ref{fig:carry_bypass_adder} puede verse un esquema de este tipo de sumador.
+
+Para la implementación de este tipo de sumadores, se divide la operación en varios bloques. En el esquema de la figura~\ref{fig:carry_bypass_adder} estos bloques son de 4 bits, aunque se puede variar el tamaño de los mismos para optimizar aún más el retardo de este sumador.
+
+En la figura~\ref{fig:carry_skip_block} puede verse un detalle de los bloques carry bypass.
+
+\begin{figure}[hbt]
+\includegraphics[width=\textwidth]{img/carryskipblock.png} 
+\caption{Bloque carry bypass} \label{fig:carry_skip_block}
+\end{figure}
+
+En nuestro diseño, se ha optado por un tamaño de bloque de 4 bits, lo que resulta en un total de 4 bloques carry bypass para obtener el sumador completo. Para trabajar con las señales P y G que se han explicado en teoría, se ha implementado una versión modificada del full adder que trabaja con las señales P y G en lugar de los sumandos originales.
+
+\subsection{Multiplicador en array}
+El multiplicador en array corresponde a la implementación más directa de una multiplicación binaria. Para ello, simplemente se generan los productos parciales y se van sumando en distintas filas de sumadores. Esto conlleva un retardo considerablemente alto, que como podremos ver, se puede reducir mediante otras configuraciones de multiplicadores.
+
+En la figura~\ref{fig:array_multiplier} se puede ver un esquema general de un multiplicador en array. Para un multiplicador de 16 x 16 bits como el que necesitamos en nuestro sistema, tendríamos que utilizar un total de 256 full adders. Debido a que esta cantidad es inmanejable a la hora de realizar conexiones de señales en VHDL, se ha optado por dividir la estructura del multiplicador en filas de 16 full adders, de forma que solo tengamos que diseñar una fila y después tratar con 16 filas. El diseño de estas filas (\emph{bloques de multiplicador en array}) puede verse en la figura~\ref{fig:array_multiplier_block}. Es importante destacar que esta agrupación en filas no conlleva ninguna modificación en el funcionamiento del multiplicador, y que equivale exactamente a haber conectado entre si los 256 full adders en un único módulo.
+
+\begin{figure}[hbt]
+\includegraphics[width=\textwidth]{img/array_multiplier.png} 
+\caption{Multiplicador en array} \label{fig:array_multiplier}
 \end{figure}
 
 \begin{figure}[hbt]
-\includegraphics[width=\textwidth]{img/respfiltro1.pdf} 
-\caption{Comprobación del filtro 1} \label{fig:filter1}
+\includegraphics[width=\textwidth]{img/array_mult_block.pdf} 
+\caption{Bloque de multiplicador en array} \label{fig:array_multiplier_block}
 \end{figure}
+
+\subsection{Multiplicador carry save}
+El multiplicador carry save es una estrucutra de multiplicador modificada que permite reducir el tiempo de retardo en la generación del producto. Para ello, los acarreos de una fila de full adders no son propagados dentro de una misma fila, sino que se propagan a la fila siguiente como un sumando adicional.
+
+El esquema de este tipo de multiplicador puede verse en la figura~\ref{fig:carry_save_multiplier}.
 
 \begin{figure}[hbt]
-\includegraphics[width=\textwidth]{img/respfiltro2.pdf} 
-\caption{Comprobación del filtro 2} \label{fig:filter2}
+\includegraphics[width=\textwidth]{img/carry_save_mult.png} 
+\caption{Multiplicador carry save} \label{fig:carry_save_multiplier}
 \end{figure}
+
+De forma análoga a lo que sucede con el multiplicador en array, realizar un multiplicador carry save de 16x16 bits conlleva la utilización de un número inmanejable de full adders. Para evitar este problema, se ha optado por una solución similar a la tomada para la implementación del multiplicador en array: dividir el sistema en bloques para cada fila de full adders.
+
+El diseño elegido para estos bloques puede verse en la figura~\ref{fig:carry_save_block}
 
 \begin{figure}[hbt]
-\includegraphics[width=\textwidth]{img/respfiltro3.pdf} 
-\caption{Comprobación del filtro 3} \label{fig:filter3}
+\includegraphics[width=\textwidth]{img/carry_save_block.png} 
+\caption{Bloque del multiplicador carry save} \label{fig:carry_save_block}
 \end{figure}
 
-\begin{figure}[hbt]
-\includegraphics[width=\textwidth]{img/respfiltro4.pdf} 
-\caption{Comprobación del filtro 4} \label{fig:filter4}
-\end{figure}
-
-\begin{figure}[hbt]
-\includegraphics[width=\textwidth]{img/respfiltro5.pdf} 
-\caption{Comprobación del filtro 5} \label{fig:filter5}
-\end{figure}
-
-\begin{figure}[hbt]
-\includegraphics[width=\textwidth]{img/respfiltro6.pdf} 
-\caption{Comprobación del filtro 6} \label{fig:filter6}
-\end{figure}
-
-\clearpage
-
-\section{Detalle de los programas para la prueba de los filtros}
-En esta sección vamos a describir más detalladamente los programas utilizados para comprobar que los filtros se han realizado correctamente.
-
-En concreto, hemos realizado un programa de simulación en ModelSim, donde definimos la señal de entrada al sistema y obtenemos la señal de salida de cada filtro. Esta señal deberá ser posteriormente exportada, y utilizaremos MATLAB para comparar esta señal con la respuesta la impulso que generaría un filtro creado con la función \emph{filter(B,A)} de MATLAB.
-
-A continuación describiremos el procedimiento seguido en ambos programas.
-
-\subsection{Programa ModelSim utilizado para la simulación}
-
-En primer lugar vamos a describir el programa utilizado en ModelSim para la simulación de los filtros anteriormente descritos. Con este fin se ha utilizado un programa de prueba en el que se incluyen los 7 filtros y se estimulan con una señal $\delta[n]$. La salida de los 7 filtros es convertida a un número entero para mayor comodidad.
-
-Los resultados de la simulación se exportaran en forma de lista para ser importados en \emph{MATLAB} y evaluados como hemos visto anteriormente. Es importante tener en cuenta que aunque nosotros estamos exportando números enteros, en nuestra representación de vectores de bits habíamos tomado 6 bits enteros y 10 bits fraccionarios. Como consecuencia, habrá que dividir los valores obtenidos por 1024 antes de poder comparar la respuesta al impulso en MATLAB.
-
-A continuación se muestra el programa VHDL que obtiene la respuesta al impulso de los filtros diseñados.
-
-\begin{vhdlcode}
-library ieee;
-use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
-
-  
-
-entity test_filter is
-    PORT (
-             iout0 : out integer;
-            iout1 : out integer;
-            iout2 : out integer;
-            iout3 : out integer;
-            iout4 : out integer;
-            iout5 : out integer;
-            iout6 : out integer);
-end;
-
-architecture only of test_filter is
-
-signal sout0 : std_logic_vector (15 downto 0);
-signal sout1 : std_logic_vector (15 downto 0);
-signal sout2 : std_logic_vector (15 downto 0);
-signal sout3 : std_logic_vector (15 downto 0);
-signal sout4 : std_logic_vector (15 downto 0);
-signal sout5 : std_logic_vector (15 downto 0);
-signal sout6 : std_logic_vector (15 downto 0);
-
-signal out0 : signed (15 downto 0);
-signal out1 : signed (15 downto 0);
-signal out2 : signed (15 downto 0);
-signal out3 : signed (15 downto 0);
-signal out4 : signed (15 downto 0);
-signal out5 : signed (15 downto 0);
-signal out6 : signed (15 downto 0);
-
-COMPONENT filter0
-    port (
-        sin : in std_logic_vector (15 downto 0);
-        sout : out std_logic_vector (15 downto 0);
-        clk : in bit);
-END COMPONENT ;
-
-COMPONENT filter1
-    port (
-        sin : in std_logic_vector (15 downto 0);
-        sout : out std_logic_vector (15 downto 0);
-        clk : in bit);
-END COMPONENT ;
-
-COMPONENT filter2
-    port (
-        sin : in std_logic_vector (15 downto 0);
-        sout : out std_logic_vector (15 downto 0);
-        clk : in bit);
-END COMPONENT ;
-
-COMPONENT filter3
-    port (
-        sin : in std_logic_vector (15 downto 0);
-        sout : out std_logic_vector (15 downto 0);
-        clk : in bit);
-END COMPONENT ;
-
-COMPONENT filter4
-    port (
-        sin : in std_logic_vector (15 downto 0);
-        sout : out std_logic_vector (15 downto 0);
-        clk : in bit);
-END COMPONENT ;
-
-COMPONENT filter5
-    port (
-        sin : in std_logic_vector (15 downto 0);
-        sout : out std_logic_vector (15 downto 0);
-        clk : in bit);
-END COMPONENT ;
-
-COMPONENT filter6
-    port (
-        sin : in std_logic_vector (15 downto 0);
-        sout : out std_logic_vector (15 downto 0);
-        clk : in bit);
-END COMPONENT ;
-
-SIGNAL clk   : bit := '0';
-SIGNAL sin  : std_logic_vector (15 downto 0) 
-            := "0000000000000000";
-
-begin
-out0 <= signed(sout0);
-out1 <= signed(sout1);
-out2 <= signed(sout2);
-out3 <= signed(sout3);
-out4 <= signed(sout4);
-out5 <= signed(sout5);
-out6 <= signed(sout6);
-
-iout0 <= to_integer(out0);
-iout1 <= to_integer(out1);
-iout2 <= to_integer(out2);
-iout3 <= to_integer(out3);
-iout4 <= to_integer(out4);
-iout5 <= to_integer(out5);
-iout6 <= to_integer(out6);
-
-dut0 : filter0 
-   PORT MAP (
-   sin => sin,
-   clk => clk,
-   sout => sout0);
-
-dut1 : filter1 
-   PORT MAP (
-   sin => sin,
-   clk => clk,
-   sout => sout1);
-
-dut2 : filter2 
-   PORT MAP (
-   sin => sin,
-   clk => clk,
-   sout => sout2);
-
-dut3 : filter3 
-   PORT MAP (
-   sin => sin,
-   clk => clk,
-   sout => sout3);
-   
-dut4 : filter4
-   PORT MAP (
-     sin => sin,
-     clk => clk,
-     sout => sout4);
-
-dut5 : filter5
-   PORT MAP (
-   sin => sin,
-   clk => clk,
-   sout => sout5);
-
-dut6 : filter6 
-   PORT MAP (
-   sin => sin,
-   clk => clk,
-   sout => sout6);
-
-clock : PROCESS
-   begin
-   wait for 10 ns; clk  <= not clk;
-end PROCESS clock;
-
-stimulus : PROCESS
-   begin
-   sin <= "0000000000000000";
-   wait for 5 ns; sin  <= "0000010000000000";
-   wait for 10 ns; sin  <= "0000000000000000";
-   wait;
-end PROCESS stimulus;
-
-end only;
-\end{vhdlcode}
-\clearpage
-
-\subsection{Programa MATLAB utilizado para la comprobación}
-Obtener la respuesta al impulso de los filtros en MATLAB es muy sencillo. MATLAB permite crear filtros a partir de sus coeficientes A y B, los mismos que hemos utilizado para la implementación en VHDL. Para obtener la respuesta al impulso simplemente deberemos generar una función $\delta[n]$ y calcular la salida del filtro utilizándola como entrada.
-
-A continuación se muestra el código del programa MATLAB utilizado con este fin.
-
-\emph{NOTA: La respuesta al impulso obtenida en ModelSIM de los filtros implementados, se encuentra en el archivo responses.lst, que será cargado para realizar la comparación.}
-
-\begin{matlabcode}
-
-A = [1024 -2029 1006;
-    1024 -2011 988;
-    1024 -1970 955;
-    1024 -1878 890;
-    1024 -1660 772;
-    1024 -1115 569;
-    1024 141 239];
-B = [1024 0 -1024;
-    1024 0 -1024;
-    1024 0 -1024;
-    1024 0 -1024;
-    1024 0 -1024;
-    1024 0 -1024;
-    1024 0 -1024;];
-
-
-
-h = dlmread('responses.lst');
-h = h ./ 1024;
-for i = 1:7,
-    delta = zeros(1,200);
-    delta(2) = 1;
-    hi = transpose(h(:,i))
-    Bi = B(i,:)
-    Ai = A(i,:)
-    yi = filter(Bi, Ai, delta)
-    diff = yi-hi;
-    subplot(2,2,1); stem(hi);
-    title('Respuesta obtenida en la simulacion')
-    xlabel('n')
-    ylabel('h[n]')
-    subplot(2,2,2); stem(yi);
-    title('Respuesta obtenida en MATLAB')
-    xlabel('n')
-    ylabel('h[n]')
-    subplot(2,2,[3:4]); stem(diff);
-    title('Diferencia entre ambas respuestas')
-    xlabel('n')
-    ylabel('|h_1[n]-h_2[n]|')
-    pause
-    subplot
-end
-
-\end{matlabcode}
-\clearpage
 
 \end{document}
 
