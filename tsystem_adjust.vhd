@@ -23,8 +23,8 @@ signal equal : boolean;
 
 component filehandler is
   generic(
-    stim_file: string :="stimulus.dat";
-    log_file: string := "output.dat"
+    stim_file: string :="signals/stimulus.dat";
+    log_file: string := "signals/output.dat"
     );
   port(
  	  sink : in signed (15 downto 0);
@@ -66,8 +66,8 @@ begin
 fh : filehandler
 
   GENERIC MAP (
-    stim_file =>"signals\stimulus.dat",
-    log_file => "signals\adjust.dat")
+    stim_file =>"signals/stimulus.dat",
+    log_file => "signals/adjust.dat")
   PORT MAP (
     sink => sink,
     source => source,
@@ -78,7 +78,7 @@ fh : filehandler
 fh2 : filehandler
 
   GENERIC MAP (
-    log_file => "signals\adjust2.dat")
+    log_file => "signals/adjust2.dat")
   PORT MAP (
     sink => sink2,
     source => open,

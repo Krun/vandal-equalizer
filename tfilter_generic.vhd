@@ -92,8 +92,8 @@ begin
   
   fh0 : filehandler
 GENERIC MAP (
-    stim_file => "signals\stim_delta.dat",
-    log_file => "signals\filter0_nogain.dat")
+    stim_file => "signals/stim_delta.dat",
+    log_file => "signals/filter0_nogain.dat")
 PORT MAP (
   sink => out0m,
 	source => open,
@@ -104,8 +104,8 @@ PORT MAP (
 	
 fh1 : filehandler
 GENERIC MAP (
-    stim_file => "signals\stim_delta.dat",
-    log_file => "signals\filter1_nogain.dat")
+    stim_file => "signals/stim_delta.dat",
+    log_file => "signals/filter1_nogain.dat")
 PORT MAP (
   sink => out1m,
 	source => open,
@@ -116,8 +116,8 @@ PORT MAP (
   
 fh2 : filehandler
 GENERIC MAP (
-    stim_file => "signals\stim_delta.dat",
-    log_file => "signals\filter2_nogain.dat")
+    stim_file => "signals/stim_delta.dat",
+    log_file => "signals/filter2_nogain.dat")
 PORT MAP (
   sink => out2m,
 	source => open,
@@ -128,8 +128,8 @@ PORT MAP (
 	
 fh3 : filehandler
 GENERIC MAP (
-    stim_file => "signals\stim_delta.dat",
-    log_file => "signals\filter3_nogain.dat")
+    stim_file => "signals/stim_delta.dat",
+    log_file => "signals/filter3_nogain.dat")
 PORT MAP (
   sink => out3m,
 	source => open,
@@ -140,8 +140,8 @@ PORT MAP (
 	
 fh4 : filehandler
 GENERIC MAP (
-    stim_file => "signals\stim_delta.dat",
-    log_file => "signals\filter4_nogain.dat")
+    stim_file => "signals/stim_delta.dat",
+    log_file => "signals/filter4_nogain.dat")
 PORT MAP (
   sink => out4m,
 	source => open,
@@ -152,8 +152,8 @@ PORT MAP (
 	
 fh5 : filehandler
 GENERIC MAP (
-    stim_file => "signals\stim_delta.dat",
-    log_file => "signals\filter5_nogain.dat")
+    stim_file => "signals/stim_delta.dat",
+    log_file => "signals/filter5_nogain.dat")
 PORT MAP (
   sink => out5m,
 	source => open,
@@ -164,8 +164,8 @@ PORT MAP (
 	
 fh6 : filehandler
 GENERIC MAP (
-    stim_file => "signals\stim_delta.dat",
-    log_file => "signals\filter6_nogain.dat")
+    stim_file => "signals/stim_delta.dat",
+    log_file => "signals/filter6_nogain.dat")
 PORT MAP (
   sink => out6m,
 	source => open,

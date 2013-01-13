@@ -14,8 +14,8 @@ use work.txt_util.all;
 
 entity filehandler is
   generic(
-    stim_file: string := "stimulus.dat";
-    log_file: string := "output.dat"
+    stim_file: string := "signals/stimulus.dat";
+    log_file: string := "signals/output.dat"
     );
   port(
  	  sink : in signed (15 downto 0);

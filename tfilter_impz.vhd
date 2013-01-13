@@ -20,8 +20,8 @@ signal out6 : signed (15 downto 0);
 
 component filehandler is
   generic(
-    stim_file: string :="signals\stim_delta.dat";
-    log_file: string := "signals\filter0.dat"
+    stim_file: string :="signals/stim_delta.dat";
+    log_file: string := "signals/filter0.dat"
     );
   port(
  	  sink : in signed (15 downto 0);
@@ -61,8 +61,8 @@ begin
   
 fh0 : filehandler
 GENERIC MAP (
-    stim_file => "signals\stim_delta.dat",
-    log_file => "signals\filter0.dat")
+    stim_file => "signals/stim_delta.dat",
+    log_file => "signals/filter0.dat")
 PORT MAP (
   sink => out0,
 	source => sin,
@@ -73,8 +73,8 @@ PORT MAP (
 	
 fh1 : filehandler
 GENERIC MAP (
-    stim_file => "signals\stim_delta.dat",
-    log_file => "signals\filter1.dat")
+    stim_file => "signals/stim_delta.dat",
+    log_file => "signals/filter1.dat")
 PORT MAP (
   sink => out1,
 	source => open,
@@ -85,8 +85,8 @@ PORT MAP (
   
 fh2 : filehandler
 GENERIC MAP (
-    stim_file => "signals\stim_delta.dat",
-    log_file => "signals\filter2.dat")
+    stim_file => "signals/stim_delta.dat",
+    log_file => "signals/filter2.dat")
 PORT MAP (
   sink => out2,
 	source => open,
@@ -97,8 +97,8 @@ PORT MAP (
 	
 fh3 : filehandler
 GENERIC MAP (
-    stim_file => "signals\stim_delta.dat",
-    log_file => "signals\filter3.dat")
+    stim_file => "signals/stim_delta.dat",
+    log_file => "signals/filter3.dat")
 PORT MAP (
   sink => out3,
 	source => open,
@@ -109,8 +109,8 @@ PORT MAP (
 	
 fh4 : filehandler
 GENERIC MAP (
-    stim_file => "signals\stim_delta.dat",
-    log_file => "signals\filter4.dat")
+    stim_file => "signals/stim_delta.dat",
+    log_file => "signals/filter4.dat")
 PORT MAP (
   sink => out4,
 	source => open,
@@ -121,8 +121,8 @@ PORT MAP (
 	
 fh5 : filehandler
 GENERIC MAP (
-    stim_file => "signals\stim_delta.dat",
-    log_file => "signals\filter5.dat")
+    stim_file => "signals/stim_delta.dat",
+    log_file => "signals/filter5.dat")
 PORT MAP (
   sink => out5,
 	source => open,
@@ -133,8 +133,8 @@ PORT MAP (
 	
 fh6 : filehandler
 GENERIC MAP (
-    stim_file => "signals\stim_delta.dat",
-    log_file => "signals\filter6.dat")
+    stim_file => "signals/stim_delta.dat",
+    log_file => "signals/filter6.dat")
 PORT MAP (
   sink => out6,
 	source => open,

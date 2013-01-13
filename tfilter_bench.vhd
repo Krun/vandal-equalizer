@@ -43,8 +43,8 @@ signal source : signed (15 downto 0);
 
 component filehandler is
   generic(
-    stim_file: string :="stimulus.dat";
-    log_file: string := "dummy"
+    stim_file: string :="signals/stimulus.dat";
+    log_file: string := "signals/dummy"
     );
   port(
  	  sink : in signed (15 downto 0);
@@ -129,8 +129,8 @@ begin
   
 fh : filehandler
 GENERIC MAP (
-    stim_file =>"stimulus.dat",
-    log_file => "dummy")
+    stim_file =>"signals/stimulus.dat",
+    log_file => "signals/dummy")
 PORT MAP (
   sink => "0000000000000000",
 	source => sin,
